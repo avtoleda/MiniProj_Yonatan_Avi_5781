@@ -6,6 +6,12 @@ public class Point3D {
     final Coordinate z;
     public final static Point3D ZERO = new Point3D(0,0,0);
 
+    /**
+     * creates a coordinate
+     * @param x
+     * @param y
+     * @param z
+     */
     public Point3D(double x, double y, double z) {
         this.x = new Coordinate(x);
         this.y = new Coordinate(y);

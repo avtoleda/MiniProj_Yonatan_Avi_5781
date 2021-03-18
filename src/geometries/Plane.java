@@ -12,6 +12,12 @@ public class Plane implements Geometry{
         this.normal = normal.normalized();
     }
 
+    /**
+     * creates a plane...
+     * @param p1
+     * @param p2
+     * @param p3
+     */
     public Plane(Point3D p1, Point3D p2, Point3D p3){
         this.q0 = p2;
 

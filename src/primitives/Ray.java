@@ -24,6 +24,11 @@ public class Ray {
         return "begining point: " + this.p0.toString() + "\nvector: " + this.dir.toString();
     }
 
+    /**
+     * checks if the rays are equals
+     * @param o
+     * @return
+     */
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
