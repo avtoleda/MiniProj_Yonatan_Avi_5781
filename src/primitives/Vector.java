@@ -1,30 +1,49 @@
 package primitives;
 
+/**
+ * Vector in the 3D space(begin from (0,0,0) to a Point in the 3D space)
+ * field1 head - vector's end point
+ */
 public class Vector {
     Point3D head;
 
+    /**
+     * creates a new vector
+     * @param x - x end point coordinate
+     * @param y - y end point coordinate
+     * @param z - z end point coordinate
+     */
     public Vector(double x, double y, double z) {
-        this.head = new Point3D(x, y, z);
+        Point3D check = new Point3D(x, y, z);
 
-        if(this.head.equals(0))
+        if (check.equals(Point3D.ZERO))
             throw new IllegalArgumentException("Vector 0 is impossible!\n");
+
+        this.head = check;
     }
 
+    /**
+     * creates a new vector
+     * @param p - vector end point
+     */
     public Vector(Point3D p) {
-        this.head = p;
-
-        if(this.head.equals(0))
+        if (p.equals(Point3D.ZERO))
             throw new IllegalArgumentException("Vector 0 is impossible!\n");
+
+        this.head = p;
     }
 
+    /**
+     * @return vector end point
+     */
     public Point3D getHead() {
         return this.head;
     }
 
     /**
-     * subtracts each param
-     * @param v
-     * @return
+     * subtracts two vectors
+     * @param v - the vector we subtract from the vector
+     * @return new vector that begin in (0, 0, 0) and end at the subtract of the two heads of the vectors
      */
     public Vector subtract(Vector v) {
         double x = this.head.x.coord - v.head.x.coord;
@@ -35,9 +54,9 @@ public class Vector {
     }
 
     /**
-     * adds each coordinate to the matching coordinate
-     * @param v
-     * @return
+     * adds two vector
+     * @param v - the vector we add to the vector
+     * @return new vector that begin in (0, 0, 0) and end at the add of the two heads of the vectors
      */
     public Vector add(Vector v) {
         double x = this.head.x.coord + v.head.x.coord;
@@ -48,9 +67,9 @@ public class Vector {
     }
 
     /**
-     * multiplies each coordinate by a double
-     * @param n
-     * @return
+     * multiplies a vector with a number
+     * @param n - the number we multiply the vector by.
+     * @return vector multiply result
      */
     public Vector scale(double n) {
         double x = this.head.x.coord * n;
@@ -62,8 +81,8 @@ public class Vector {
 
     /**
      * returns the cross product between the vector and another one
-     * @param v
-     * @return
+     * @param v - a vector with we multiply the vector
+     * @return vector multiply result
      */
     public Vector crossProduct(Vector v) {
         double x = this.head.y.coord * v.head.z.coord - this.head.z.coord * v.head.y.coord;
@@ -75,8 +94,8 @@ public class Vector {
 
     /**
      * returns the dot product between the vector and another one
-     * @param v
-     * @return
+     * @param v - a vector with we multiply the vector
+     * @return vector multiply result
      */
     public double dotProduct(Vector v) {
         double x = this.head.x.coord * v.head.x.coord;
@@ -87,8 +106,7 @@ public class Vector {
     }
 
     /**
-     * returns the square the length of the vector
-     * @return
+     * @return the squared length of the vector
      */
     public double lengthSquared() {
         double x = this.head.x.coord;
@@ -100,16 +118,15 @@ public class Vector {
     }
 
     /**
-     * returns the length
-     * @return
+     * @return the length of the vector
      */
     public double length() {
         return Math.sqrt(this.lengthSquared());
     }
 
     /**
-     * normalizes this vector and returns it
-     * @return
+     * normalizes the vector
+     * @return the vector after he was normalized
      */
     public Vector normalize() {
         double length = this.length(), x = this.head.x.coord, y = this.head.y.coord, z = this.head.z.coord;
@@ -119,8 +136,7 @@ public class Vector {
     }
 
     /**
-     * returns a new vector which is the normilized version of the vector
-     * @return
+     * @return a new vector which is the normalized version of the vector
      */
     public Vector normalized() {
         Vector v = new Vector(this.head);
