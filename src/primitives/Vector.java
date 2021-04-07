@@ -139,6 +139,7 @@ public class Vector {
 
         if (length == 0)
             throw new ArithmeticException("can't not divide by zero!\n");
+
         this.head = new Point3D(x / length, y / length, z / length);
 
         return this;
@@ -150,7 +151,7 @@ public class Vector {
     public Vector normalized() {
         Vector v = new Vector(this.head);
 
-        return v.normalize();
+            return v.normalize();
     }
 
     @Override
