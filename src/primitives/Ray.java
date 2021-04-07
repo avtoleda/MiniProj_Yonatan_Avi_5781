@@ -6,8 +6,8 @@ package primitives;
  * field2 dir - ray vector direction
  */
 public class Ray {
-    Point3D p0;
-    Vector dir;
+    final Point3D p0;
+    final Vector dir;
 
     /**
      * creates a new ray

@@ -72,6 +72,9 @@ public class Vector {
      * @return vector multiply result
      */
     public Vector scale(double n) {
+        if (n == 0)
+            throw new IllegalArgumentException("can not scale by zero!\n");
+
         double x = this.head.x.coord * n;
         double y = this.head.y.coord * n;
         double z = this.head.z.coord * n;
@@ -88,6 +91,9 @@ public class Vector {
         double x = this.head.y.coord * v.head.z.coord - this.head.z.coord * v.head.y.coord;
         double y = this.head.z.coord * v.head.x.coord - this.head.x.coord * v.head.z.coord;
         double z = this.head.x.coord * v.head.y.coord - this.head.y.coord * v.head.x.coord;
+
+        if(new Point3D(x, y, z).equals(Point3D.ZERO))
+            throw new IllegalArgumentException("cross product resulting Zero point head");
 
         return new Vector(x, y, z);
     }
@@ -130,6 +136,9 @@ public class Vector {
      */
     public Vector normalize() {
         double length = this.length(), x = this.head.x.coord, y = this.head.y.coord, z = this.head.z.coord;
+
+        if (length == 0)
+            throw new ArithmeticException("can't not divide by zero!\n");
         this.head = new Point3D(x / length, y / length, z / length);
 
         return this;

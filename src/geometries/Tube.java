@@ -10,8 +10,8 @@ import primitives.Vector;
  * field2 radius - the radius of the tube
  */
 public class Tube implements Geometry {
-    Ray axisRay;
-    double radius;
+    final Ray axisRay;
+    final double radius;
 
     /**
      * create a new tube
@@ -49,6 +49,12 @@ public class Tube implements Geometry {
      */
     @Override
     public Vector getNormal(Point3D p) {
-        return null;
+        Vector P_P0 = p.subtract(this.axisRay.getP0());
+        double t = this.axisRay.getDir().dotProduct(P_P0);
+
+        Point3D O = this.axisRay.getP0().add(P_P0.scale(t));
+        Vector N = p.subtract(O);
+
+        return N.normalize();
     }
 }

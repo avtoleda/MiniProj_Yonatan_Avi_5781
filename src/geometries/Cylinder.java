@@ -7,7 +7,7 @@ import primitives.Ray;
  * field1 height - height of the tube
  */
 public class Cylinder extends Tube {
-    double height;
+    final double height;
 
     /**
      * create a new Cylinder

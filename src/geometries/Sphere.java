@@ -9,8 +9,8 @@ import primitives.Vector;
  * field2 radius - the radius of the Sphere
  */
 public class Sphere implements Geometry {
-    Point3D center;
-    double radius;
+    final Point3D center;
+    final double radius;
 
     /**
      * creates a new Sphere
@@ -47,6 +47,7 @@ public class Sphere implements Geometry {
      */
     @Override
     public Vector getNormal(Point3D p) {
-        return null;
+        Vector v = p.subtract(this.center);
+        return v.normalize();
     }
 }

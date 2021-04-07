@@ -31,14 +31,12 @@ public class Plane implements Geometry{
     public Plane(Point3D p1, Point3D p2, Point3D p3){
         this.q0 = p2;
 
-        /* real calculate, but for the next level of the project for now normal = null
-        Vector v1 = p1.subtract(p2);
-        Vector v2 = p3.subtract(p2);
+        //calculate of the normal
+        Vector u = p2.subtract(p1);
+        Vector v = p3.subtract(p1);
+        Vector n = u.crossProduct(v);
 
-        this.normal = v1.crossProduct(v2);
-        */
-
-        this.normal = null; // to be changed in next level of the project
+        this.normal = n.normalize();
     }
 
     /**
@@ -61,6 +59,6 @@ public class Plane implements Geometry{
      */
     @Override
     public Vector getNormal(Point3D p) {
-        return getNormal();
+        return this.getNormal();
     }
 }
