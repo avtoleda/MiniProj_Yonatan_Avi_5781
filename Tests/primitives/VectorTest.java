@@ -20,14 +20,22 @@ class VectorTest {
 
     @Test
     void subtract() {
+        Vector v1 = new Vector(1, 6, 3);
+        Vector v2 = new Vector(0, 4, 3);
+        assertEquals(v1.subtract(v2),new Vector(1,2,0));
     }
 
     @Test
     void add() {
+        Vector v1 = new Vector(1, 6, 3);
+        Vector v2 = new Vector(0, 4, 3);
+        assertEquals(v1.add(v2),new Vector(1,10,6));
     }
 
     @Test
     void scale() {
+        Vector vec=new Vector(1,2,3);
+        assertEquals(vec.scale(2),new Vector(2,4,6));
     }
 
     /**
@@ -61,6 +69,10 @@ class VectorTest {
 
     @Test
     void dotProduct() {
+        Vector v1=new Vector(1,2,3);
+        Vector v2=new Vector(2,3,1);
+        int res=11;
+        assertEquals(v1.dotProduct(v2),res);
     }
 
     @Test
@@ -96,5 +108,21 @@ class VectorTest {
 
     @Test
     void normalized() {
+        Vector vec=new Vector(1,2,3);
+        Vector r= vec.normalized();
+        assertEquals(1, r.length(), 1e-10, "");
+
+        try {
+            v = new Vector(0, 0, 0);
+        } catch (IllegalArgumentException e) {
+            System.out.println(e.getMessage());
+        }
+
+        try {
+            r.normalize();
+            //fail("Didn't throw divide by zero exception!");
+        } catch (ArithmeticException e) {
+            assertTrue(true);
+        }
     }
 }
