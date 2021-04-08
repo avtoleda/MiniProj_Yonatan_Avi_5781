@@ -52,7 +52,7 @@ public class Tube implements Geometry {
         Vector P_P0 = p.subtract(this.axisRay.getP0());
         double t = this.axisRay.getDir().dotProduct(P_P0);
 
-        Point3D O = this.axisRay.getP0().add(P_P0.scale(t));
+        Point3D O = this.axisRay.getP0().add(axisRay.getDir().scale(t));
         Vector N = p.subtract(O);
 
         return N.normalize();
