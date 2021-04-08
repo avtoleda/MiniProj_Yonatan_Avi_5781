@@ -1,6 +1,8 @@
 package geometries;
 
+import primitives.Point3D;
 import primitives.Ray;
+import primitives.Vector;
 
 /**
  * Cylinder in the 3D space
@@ -11,9 +13,10 @@ public class Cylinder extends Tube {
 
     /**
      * create a new Cylinder
+     *
      * @param axisRay -the ray around which we built the cylinder
-     * @param radius - the radius of the cylinder
-     * @param height - the height of the cylinder
+     * @param radius  - the radius of the cylinder
+     * @param height  - the height of the cylinder
      */
     public Cylinder(Ray axisRay, double radius, double height) {
         super(axisRay, radius);
@@ -31,4 +34,5 @@ public class Cylinder extends Tube {
     public String toString() {
         return super.toString() + "height= " + height;
     }
+
 }

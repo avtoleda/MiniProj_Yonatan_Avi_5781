@@ -16,9 +16,22 @@ class PlaneTest {
 
         Plane p=new Plane(p1,p2,p3);
         int help=1;
-        if(p.getNormal()==new Vector(0,-1,0))
+        if(p.getNormal(p3)==new Vector(0,-1,0))
             help=-1;
         assertEquals(p.getNormal(),new Vector(0,help*1,0));
     }
-
+    @Test
+    void constr1(){
+        Point3D p1=new Point3D(1,0,0);
+        Point3D p2=new Point3D(1,0,0);
+        Point3D p3=new Point3D(3,0,3);
+        assertThrows(IllegalArgumentException.class, ()->new Plane(p1,p2,p3),"wrong arguments");
+    }
+    @Test
+    void constr2(){
+        Point3D p1=new Point3D(1,1,1);
+        Point3D p2=new Point3D(2,2,2);
+        Point3D p3=new Point3D(3,3,3);
+        assertThrows(IllegalArgumentException.class, ()->new Plane(p1,p2,p3),"wrong arguments");
+    }
 }
