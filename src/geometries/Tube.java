@@ -4,14 +4,15 @@ import primitives.Point3D;
 import primitives.Ray;
 import primitives.Vector;
 
+import java.util.List;
+
 /**
  * Tube in the 3D space
  * field1 axisRay - the ray around which we built the tube
  * field2 radius - the radius of the tube
  */
-public class Tube implements Geometry {
+public class Tube extends RadialGeometry implements Geometry {
     final Ray axisRay;
-    final double radius;
 
     /**
      * create a new tube
@@ -19,8 +20,8 @@ public class Tube implements Geometry {
      * @param radius - the radius of the tube
      */
     public Tube(Ray axisRay, double radius) {
+        super(radius);
         this.axisRay = axisRay;
-        this.radius = radius;
     }
 
     /**
@@ -28,13 +29,6 @@ public class Tube implements Geometry {
      */
     public Ray getAxisRay() {
         return this.axisRay;
-    }
-
-    /**
-     * @return the radius of the tube
-     */
-    public double getRadius() {
-        return this.radius;
     }
 
     @Override
@@ -56,5 +50,10 @@ public class Tube implements Geometry {
         Vector N = p.subtract(O);
 
         return N.normalize();
+    }
+
+    @Override
+    public List<Point3D> findIntersections(Ray ray) {
+        return null;
     }
 }
