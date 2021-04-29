@@ -24,7 +24,7 @@ public class Point3D {
         this.y = new Coordinate(y);
         this.z = new Coordinate(z);
     }
-
+    //public Point3D(){};
     /* later in the next level of the project
     public Coordinate getX() {
         return x;
