@@ -1,5 +1,7 @@
 package primitives;
 
+import java.util.List;
+
 /**
  * Ray in the 3D space
  * field1 p0 - beginning point of ray
@@ -31,6 +33,25 @@ public class Ray {
      */
     public Vector getDir() {
         return this.dir;
+    }
+
+    public Point3D findClosestPoint(List<Point3D> points) {
+        Point3D minPoint = null;
+
+        if(points != null) {
+            double distance = Double.POSITIVE_INFINITY;
+
+            for (Point3D p : points) {
+                double h = p.distance(p0);
+
+                if (h < distance) {
+                    distance = h;
+                    minPoint = p;
+                }
+            }
+        }
+
+        return minPoint;
     }
 
     @Override
