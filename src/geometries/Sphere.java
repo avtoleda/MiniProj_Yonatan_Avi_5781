@@ -14,7 +14,7 @@ import static primitives.Util.isZero;
  * field1 center - the center point of the Sphere
  * field2 radius - the radius of the Sphere
  */
-public class Sphere extends RadialGeometry implements Geometry {
+public class Sphere extends RadialGeometry {
     final Point3D center;
 
     /**

@@ -14,7 +14,7 @@ import static primitives.Util.isZero;
  * field1 q0 - point in the plane
  * field2 normal - the normal vector of the plane
  */
-public class Plane implements Geometry{
+public class Plane extends Geometry{
     final Point3D q0;
     final Vector normal;
 

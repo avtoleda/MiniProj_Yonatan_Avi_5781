@@ -11,7 +11,7 @@ import static primitives.Util.alignZero;
 /**
  * Triangle in the 3D space
  */
-public class Triangle extends Polygon implements Geometry{
+public class Triangle extends Polygon {
     /**
      * creates a new Triangle
      * @param p1 first point of the Triangle

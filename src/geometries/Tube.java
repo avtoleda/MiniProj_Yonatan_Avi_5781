@@ -11,7 +11,7 @@ import java.util.List;
  * field1 axisRay - the ray around which we built the tube
  * field2 radius - the radius of the tube
  */
-public class Tube extends RadialGeometry implements Geometry {
+public class Tube extends RadialGeometry {
     final Ray axisRay;
 
     /**
