@@ -3,6 +3,9 @@ package geometries;
 import primitives.Point3D;
 import primitives.Vector;
 import primitives.*;
+
+import java.util.List;
+
 /**
  * global interface for all geometries shapes
  */
@@ -18,4 +21,8 @@ public abstract class Geometry implements Intersectable {
         this.emission = emission;
     }
 
+    @Override
+    public abstract List<Point3D> findIntersections(Ray ray);
+    @Override
+    public abstract List<GeoPoint> findGeoIntersections(Ray ray);
 }

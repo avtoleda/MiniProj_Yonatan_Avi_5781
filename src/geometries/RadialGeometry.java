@@ -13,4 +13,5 @@ public abstract class RadialGeometry extends Geometry{
     public double getRadius() {
         return this.radius;
     }
+
 }

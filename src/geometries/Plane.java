@@ -90,4 +90,33 @@ public class Plane extends Geometry{
         Point3D p = ray.getPoint(t);
         return List.of(p);
     }
+
+    @Override
+    public List<GeoPoint> findGeoIntersections(Ray ray) {
+        List<GeoPoint> l;
+        Point3D P0 = ray.getP0();
+        Vector v = ray.getDir();
+
+        if(q0.equals(P0))
+        {
+            l=(List<GeoPoint>)(new GeoPoint(this,q0));
+            return l;
+        }
+
+
+        double nv = this.normal.dotProduct(v);
+
+        //The ray is laying on the plane
+        if(isZero(nv))
+            return null;
+
+        double t = alignZero(this.normal.dotProduct(this.q0.subtract(P0)) / nv);
+
+        if(t <= 0)
+            return null;
+
+        Point3D p = ray.getPoint(t);
+        l=(List<GeoPoint>)(new GeoPoint(this,p));
+        return l;
+    }
 }

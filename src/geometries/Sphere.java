@@ -88,4 +88,9 @@ public class Sphere extends RadialGeometry {
 
         return  null;
     }
+
+    @Override
+    public List<GeoPoint> findGeoIntersections(Ray ray) {
+        return null;
+    }
 }
