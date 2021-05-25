@@ -17,8 +17,9 @@ public abstract class Geometry implements Intersectable {
         return emission;
     }
 
-    public void setEmission(Color emission) {
+    public Geometry setEmission(Color emission) {
         this.emission = emission;
+        return  this;
     }
 
     @Override

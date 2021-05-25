@@ -91,6 +91,11 @@ public class Sphere extends RadialGeometry {
 
     @Override
     public List<GeoPoint> findGeoIntersections(Ray ray) {
-        return null;
+        List<GeoPoint> l = null;
+        List<Point3D> lp=findIntersections(ray);
+        for (Point3D p: lp) {
+            l.add(new GeoPoint(this,p));
+        }
+        return l;
     }
 }

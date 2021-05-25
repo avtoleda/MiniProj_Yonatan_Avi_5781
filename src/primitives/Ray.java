@@ -1,7 +1,7 @@
 package primitives;
 
 import java.util.List;
-
+import geometries.Intersectable.GeoPoint;
 /**
  * Ray in the 3D space
  * field1 p0 - beginning point of ray
@@ -69,5 +69,24 @@ public class Ray {
 
     public Point3D getPoint(double t) {
         return this.p0.add(this.dir.scale(t));
+    }
+
+    public GeoPoint findClosestGeoPoint(List<GeoPoint> points){
+        GeoPoint minPoint = null;
+
+        if(points != null) {
+            double distance = Double.POSITIVE_INFINITY;
+
+            for (GeoPoint p : points) {
+                double h = p.point.distance(p0);
+
+                if (h < distance) {
+                    distance = h;
+                    minPoint = p;
+                }
+            }
+        }
+
+        return minPoint;
     }
 }
