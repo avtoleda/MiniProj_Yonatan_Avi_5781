@@ -5,13 +5,18 @@ import primitives.Ray;
 
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 /**
  * global interface for all Intersectable shapes
  */
 
 public interface Intersectable {
-    List<Point3D> findIntersections(Ray ray);
+    public default List<Point3D> findIntersections(Ray ray) {
+        var geoList = findGeoIntersections(ray);
+        return geoList == null ? null
+                : geoList.stream().map(gp -> gp.point).collect(Collectors.toList());
+    }
 
     /**
      *

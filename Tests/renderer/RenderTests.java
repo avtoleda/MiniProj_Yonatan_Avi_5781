@@ -23,9 +23,9 @@ public class RenderTests {
      */
     @Test
     public void basicRenderTwoColorTest() {
-        Scene scene = new Scene("Test scene")//
-                .setAmbientLight(new AmbientLight(new Color(255, 191, 191), 1)) //
-                .setBackground(new Color(75, 127, 90));
+        Scene scene = new Scene.sceneBuilder("Test scene")//
+                .ambientLight(new AmbientLight(new Color(255, 191, 191), 1)) //
+                .background(new Color(75, 127, 90)).build();
 
         scene.geometries.add(new Sphere(50, new Point3D(0, 0, -100)),
                 new Triangle(new Point3D(-100, 0, -100), new Point3D(0, 100, -100), new Point3D(-100, 100, -100)), // up

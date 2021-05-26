@@ -11,6 +11,26 @@ import java.util.List;
  */
 public abstract class Geometry implements Intersectable {
     protected Color emission=Color.BLACK;
+    private Material m=new Material.MaterialBuilder().build();
+
+    /**
+     *
+     * @return
+     */
+    public Material getM() {
+        return m;
+    }
+
+    /**
+     *
+     * @param m
+     * @return
+     */
+    public Geometry setM(Material m) {
+        this.m = m;
+        return this;
+    }
+
     public abstract Vector getNormal(Point3D p);
 
     public Color getEmission() {
@@ -22,8 +42,8 @@ public abstract class Geometry implements Intersectable {
         return  this;
     }
 
-    @Override
-    public abstract List<Point3D> findIntersections(Ray ray);
+   // @Override
+    //public abstract List<Point3D> findIntersections(Ray ray);
     @Override
     public abstract List<GeoPoint> findGeoIntersections(Ray ray);
 }
