@@ -47,8 +47,7 @@ public class Sphere extends Geometry {
      */
     @Override
     public Vector getNormal(Point3D p) {
-        Vector v = p.subtract(this.center).normalize();
-        return v;
+        return p.subtract(this.center).normalize();
     }
 
     //@Override
@@ -107,7 +106,7 @@ public class Sphere extends Geometry {
         double tm = alignZero(u.dotProduct(v));
         double d = alignZero(Math.sqrt(u.lengthSquared() - tm * tm));
 
-        if(d >= this.radius)
+        if(d > this.radius)
             return  null;
 
         double th = alignZero(Math.sqrt(radius * radius - d * d));

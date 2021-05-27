@@ -30,7 +30,7 @@ public class LightsTests {
 			new Point3D(-150, -150, -150), new Point3D(-70, 70, -50), new Point3D(75, 75, -150));
 	private static Geometry sphere = new Sphere(50, new Point3D(0, 0, -50)) //
 			.setEmission(new Color(java.awt.Color.BLUE)) //
-			.setM(new Material.MaterialBuilder().kD(0.5).kD(0.5).nShininess(100).build());
+			.setM(new Material.MaterialBuilder().kD(0.5).kS(0.5).nShininess(100).build());
 
 	/**
 	 * Produce a picture of a sphere lighted by a directional light
@@ -137,6 +137,53 @@ public class LightsTests {
 				.setImageWriter(imageWriter) //
 				.setCamera(camera2) //
 				.setRayTracer(new RayTracerBasic(scene2));
+		render.renderImage();
+		render.writeToImage();
+	}
+	@Test
+	public void coolTest(){
+		Scene scene3 = new Scene.sceneBuilder("cool and epic").background(new Color(57, 153, 189)).ambientLight(new AmbientLight(new Color(java.awt.Color.ORANGE), 0.15)).build();
+		scene3.lights.add(new PointLight.PointLightBuilder(new Point3D(40,1,1), new Color(122,211,65)).build());
+		scene3.lights.add(new DirectionalLight(new Color(11,22,33),new Vector(2,20,3)));
+		scene3.lights.add(new SpotLight(new Color(44,34,65),new Point3D(5,7,-70),new Vector(10,5,20)));
+		scene3.geometries.add(triangle1);
+		scene3.geometries.add(sphere);
+		ImageWriter imageWriter = new ImageWriter("coolTest", 500, 500);
+		Render render = new Render()//
+				.setImageWriter(imageWriter) //
+				.setCamera(camera1) //
+				.setRayTracer(new RayTracerBasic(scene3));
+		render.renderImage();
+		render.writeToImage();
+	}
+	@Test
+	public void coolTest2(){
+		Scene scene3 = new Scene.sceneBuilder("epic").background(new Color(57, 153, 189)).ambientLight(new AmbientLight(new Color(java.awt.Color.YELLOW), 0.15)).build();
+		scene3.lights.add(new PointLight.PointLightBuilder(new Point3D(1,1,1), new Color(122,11,65)).build());
+		scene3.lights.add(new DirectionalLight(new Color(11,90,140),new Vector(2,76,3)));
+		scene3.lights.add(new SpotLight(new Color(44,34,5),new Point3D(5,7,9),new Vector(-9,5,7)));
+		scene3.geometries.add(triangle1);
+		scene3.geometries.add(triangle2);
+		ImageWriter imageWriter = new ImageWriter("cooTest", 500, 500);
+		Render render = new Render()//
+				.setImageWriter(imageWriter) //
+				.setCamera(camera1) //
+				.setRayTracer(new RayTracerBasic(scene3));
+		render.renderImage();
+		render.writeToImage();
+	}
+	@Test
+	public void coolTest3(){
+		Scene scene3 = new Scene.sceneBuilder("cool epic").background(new Color(57, 153, 189)).ambientLight(new AmbientLight(new Color(java.awt.Color.YELLOW), 0.15)).build();
+		scene3.lights.add(new PointLight.PointLightBuilder(new Point3D(-1,1,1), new Color(122,211,250)).build());
+		scene3.lights.add(new DirectionalLight(new Color(200,20,33),new Vector(2,-76,3)));
+		scene3.lights.add(new SpotLight(new Color(44,7,65),new Point3D(5,7,-9),new Vector(-9,5,7)));
+		scene3.geometries.add(sphere);
+		ImageWriter imageWriter = new ImageWriter("coTest", 500, 500);
+		Render render = new Render()//
+				.setImageWriter(imageWriter) //
+				.setCamera(camera2) //
+				.setRayTracer(new RayTracerBasic(scene3));
 		render.renderImage();
 		render.writeToImage();
 	}

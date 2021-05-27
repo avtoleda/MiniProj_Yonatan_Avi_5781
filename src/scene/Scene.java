@@ -45,7 +45,7 @@ public class Scene {
         public Color background = Color.BLACK;
         public AmbientLight  ambientLight = new AmbientLight(Color.BLACK, 1.d);
         public Geometries geometries = new Geometries();
-        public List<LightSource> lights = new LinkedList<LightSource>();
+        public List<LightSource> lights = new LinkedList<>();
 
         public sceneBuilder(String name) {
             this.name = name;
