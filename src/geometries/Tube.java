@@ -11,8 +11,9 @@ import java.util.List;
  * field1 axisRay - the ray around which we built the tube
  * field2 radius - the radius of the tube
  */
-public class Tube extends RadialGeometry {
+public class Tube extends Geometry {
     final Ray axisRay;
+    final double radius;
 
     /**
      * create a new tube
@@ -20,7 +21,7 @@ public class Tube extends RadialGeometry {
      * @param radius - the radius of the tube
      */
     public Tube(Ray axisRay, double radius) {
-        super(radius);
+        this.radius = radius;
         this.axisRay = axisRay;
     }
 
@@ -41,24 +42,21 @@ public class Tube extends RadialGeometry {
      * @param p - the point from where we want calculate the normal of the tube
      * @return the normal to the tube in p
      */
-    @Override
     public Vector getNormal(Point3D p) {
         Vector P_P0 = p.subtract(this.axisRay.getP0());
         double t = this.axisRay.getDir().dotProduct(P_P0);
 
         Point3D O = this.axisRay.getP0().add(axisRay.getDir().scale(t));
-        Vector N = p.subtract(O);
+        Vector N = p.subtract(O).normalize();
 
-        return N.normalize();
+        return N;
     }
 
-    @Override
     public List<Point3D> findIntersections(Ray ray) {
         return null;
     }
 
-    @Override
-    public List<GeoPoint> findGeoIntersections(Ray ray) {
+    public List<Intersectable.GeoPoint> findGeoIntersections(Ray ray) {
         return null;
     }
 }

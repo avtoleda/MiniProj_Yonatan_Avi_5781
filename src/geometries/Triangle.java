@@ -60,7 +60,7 @@ public class Triangle extends Polygon {
             return null;
         Point3D p0 = ray.getP0();
         Vector v = ray.getDir();
-        intersections.get(0). geometry = this;
+        intersections.get(0).geometry = this;
         Vector v1 = this.vertices.get(0).subtract(p0);
         Vector v2 = this.vertices.get(1).subtract(p0);
         Vector v3 = this.vertices.get(2).subtract(p0);

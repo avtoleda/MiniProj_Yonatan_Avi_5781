@@ -26,7 +26,7 @@ public class PointLight extends Light implements LightSource{
         double d= p.distance(position);
         double ds= p.distanceSquared(position);
 
-        return super.getIntensity().scale(1/(Kc+Kl*d+Kq*ds));
+        return super.getIntensity().reduce(Kc+Kl*d+Kq*ds);
     }
 
     public PointLight setPosition(Point3D position) {

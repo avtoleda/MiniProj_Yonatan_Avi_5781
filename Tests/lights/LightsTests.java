@@ -55,8 +55,8 @@ public class LightsTests {
 	@Test
 	public void spherePoint() {
 		scene1.geometries.add(sphere);
-		scene1.lights.add(new PointLight.PointLightBuilder( new Point3D(-50, -50, 50),new Color(500, 300, 0))//
-				.KL(0.00001).KQ(0.000001).build());
+		scene1.lights.add(new PointLight(new Color(500, 300, 0), new Point3D(-50, -50, 50))//
+				.setKl(0.00001).setKq(0.000001));
 
 		ImageWriter imageWriter = new ImageWriter("lightSpherePoint", 500, 500);
 		Render render = new Render()//

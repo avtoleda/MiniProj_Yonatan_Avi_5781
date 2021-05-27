@@ -9,13 +9,15 @@ import java.util.List;
 import static primitives.Util.alignZero;
 import static primitives.Util.isZero;
 
+import geometries.Intersectable.GeoPoint;
 /**
  * Sphere in the 3D space
  * field1 center - the center point of the Sphere
  * field2 radius - the radius of the Sphere
  */
-public class Sphere extends RadialGeometry {
+public class Sphere extends Geometry {
     final Point3D center;
+    final double radius;
 
     /**
      * creates a new Sphere
@@ -23,7 +25,7 @@ public class Sphere extends RadialGeometry {
      * @param radius - the radius of the Sphere
      */
     public Sphere(double radius, Point3D center) {
-        super(radius);
+        this.radius = radius;
         this.center = center;
     }
 
@@ -45,8 +47,8 @@ public class Sphere extends RadialGeometry {
      */
     @Override
     public Vector getNormal(Point3D p) {
-        Vector v = p.subtract(this.center);
-        return v.normalize();
+        Vector v = p.subtract(this.center).normalize();
+        return v;
     }
 
     //@Override
@@ -88,10 +90,9 @@ public class Sphere extends RadialGeometry {
 //
     //    return  null;
  //   }
-
     @Override
     public List<GeoPoint> findGeoIntersections(Ray ray) {
-        List<GeoPoint> l = null;
+        //List<GeoPoint> l = null;
         Vector u;
 
         try {
@@ -106,7 +107,7 @@ public class Sphere extends RadialGeometry {
         double tm = alignZero(u.dotProduct(v));
         double d = alignZero(Math.sqrt(u.lengthSquared() - tm * tm));
 
-        if(d > this.radius)
+        if(d >= this.radius)
             return  null;
 
         double th = alignZero(Math.sqrt(radius * radius - d * d));

@@ -3,8 +3,8 @@ package primitives;
 import java.lang.reflect.MalformedParametersException;
 
 public class Material {
-    public double kD,kS;
-    public int nShininess;
+    public double kD=0,kS=0;
+    public int nShininess=0;
 
     /**
      *

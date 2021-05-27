@@ -12,7 +12,7 @@ import java.util.List;
 public class Scene {
     private final String name;
     public Color background = Color.BLACK;
-    public AmbientLight  ambientLight = new AmbientLight(new Color(192, 192, 192), 1.d);
+    public AmbientLight  ambientLight = new AmbientLight(Color.BLACK, 1.d);
     public Geometries geometries = new Geometries();
     public List<LightSource> lights = new LinkedList<LightSource>();
     public Scene(sceneBuilder sb) {
@@ -43,7 +43,7 @@ public class Scene {
     {
         private final String name;
         public Color background = Color.BLACK;
-        public AmbientLight  ambientLight = new AmbientLight(new Color(192, 192, 192), 1.d);
+        public AmbientLight  ambientLight = new AmbientLight(Color.BLACK, 1.d);
         public Geometries geometries = new Geometries();
         public List<LightSource> lights = new LinkedList<LightSource>();
 
