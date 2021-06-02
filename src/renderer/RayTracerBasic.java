@@ -10,6 +10,8 @@ import java.util.List;
 import static primitives.Util.alignZero;
 
 public class RayTracerBasic extends RayTracerBase {
+    private static final double DELTA = 0.1;
+
     public RayTracerBasic(Scene scene) {
         super(scene);
     }
@@ -40,13 +42,13 @@ public class RayTracerBasic extends RayTracerBase {
         if (nv == 0)
             return Color.BLACK;
         Material material = intersection.geometry.getM();
-        int nShininess = material.getnShininess();
-        double kd = material.getkD(), ks = material.getkS();
+        int nShininess = material.nShininess;
+        double kd = material.kD, ks = material.kS;
         Color color = Color.BLACK;
         for (LightSource lightSource : scene.lights) {
             Vector l = lightSource.getL(intersection.point);
             double nl = alignZero(n.dotProduct(l));
-            if (nl * nv > 0) {
+            if(nl * nv > 0 && unshaded(lightSource, l, n, intersection)) {//if (nl * nv > 0) {
                 Color lightIntensity = lightSource.getIntensity(intersection.point);
                 color = color.add(calcDiffusive(kd, l, n, lightIntensity),
                         calcSpecular(ks, l, n, v, nShininess, lightIntensity));
@@ -65,5 +67,23 @@ public class RayTracerBasic extends RayTracerBase {
     public Color calcDiffusive(double kd,Vector l,Vector n,Color lightIntensity){
         double factor=kd*Math.abs(l.dotProduct(n));
         return lightIntensity.scale(factor);
+    }
+
+    private boolean unshaded(LightSource lightSource, Vector l, Vector n, GeoPoint geopoint) {
+        Vector lightDirection = l.scale(-1); // from point to light source
+        Ray lightRay = new Ray(geopoint.point, lightDirection, n, DELTA);
+        List<GeoPoint> intersections = scene.geometries.findGeoIntersections(lightRay);
+
+        if (intersections == null)
+            return true;
+
+        double lightDistance = lightSource.getDistance(geopoint.point);
+
+        for (GeoPoint gp : intersections) {
+            if (alignZero(gp.point.distance(geopoint.point) - lightDistance) <= 0)
+                return false;
+        }
+
+        return true;
     }
 }

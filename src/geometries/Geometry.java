@@ -11,7 +11,7 @@ import java.util.List;
  */
 public abstract class Geometry implements Intersectable {
     protected Color emission=Color.BLACK;
-    private Material m=new Material.MaterialBuilder().build();
+    private Material m = new Material();
 
     /**
      *
@@ -26,7 +26,7 @@ public abstract class Geometry implements Intersectable {
      * @param m
      * @return
      */
-    public Geometry setM(Material m) {
+    public Geometry setMaterial(Material m) {
         this.m = m;
         return this;
     }

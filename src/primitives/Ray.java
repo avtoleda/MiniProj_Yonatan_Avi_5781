@@ -22,6 +22,19 @@ public class Ray {
     }
 
     /**
+     *
+     * @param point
+     * @param lightDirection
+     * @param n
+     * @param DELTA
+     */
+    public Ray(Point3D point, Vector lightDirection, Vector n, double DELTA) {
+        Vector delta = n.scale(n.dotProduct(lightDirection) > 0 ? DELTA : - DELTA);
+        this.p0 = point.add(delta);
+        this.dir = lightDirection.normalized();
+    }
+
+    /**
      * @return beginning point of ray
      */
     public Point3D getP0() {

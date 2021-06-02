@@ -23,6 +23,10 @@ public class Scene {
         this.lights = sb.lights;
     }
 
+    public Scene(String name) {
+        this.name = name;
+    }
+
     //chaining methods
     public Scene setBackground(Color background) {
         this.background = background;
@@ -49,7 +53,6 @@ public class Scene {
 
         public sceneBuilder(String name) {
             this.name = name;
-
         }
         public sceneBuilder background(Color background) {
             this.background = background;
