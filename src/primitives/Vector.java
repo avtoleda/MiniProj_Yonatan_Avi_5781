@@ -2,13 +2,14 @@ package primitives;
 
 /**
  * Vector in the 3D space(begin from (0,0,0) to a Point in the 3D space)
- * field1 head - vector's end point
+ * head - vector's end point
  */
 public class Vector {
     Point3D head;
 
     /**
      * creates a new vector
+     *
      * @param x - x end point coordinate
      * @param y - y end point coordinate
      * @param z - z end point coordinate
@@ -24,6 +25,7 @@ public class Vector {
 
     /**
      * creates a new vector
+     *
      * @param p - vector end point
      */
     public Vector(Point3D p) {
@@ -42,6 +44,7 @@ public class Vector {
 
     /**
      * subtracts two vectors
+     *
      * @param v - the vector we subtract from the vector
      * @return new vector that begin in (0, 0, 0) and end at the subtract of the two heads of the vectors
      */
@@ -55,6 +58,7 @@ public class Vector {
 
     /**
      * adds two vector
+     *
      * @param v - the vector we add to the vector
      * @return new vector that begin in (0, 0, 0) and end at the add of the two heads of the vectors
      */
@@ -68,6 +72,7 @@ public class Vector {
 
     /**
      * multiplies a vector with a number
+     *
      * @param n - the number we multiply the vector by.
      * @return vector multiply result
      */
@@ -84,6 +89,7 @@ public class Vector {
 
     /**
      * returns the cross product between the vector and another one
+     *
      * @param v - a vector with we multiply the vector
      * @return vector multiply result
      */
@@ -92,7 +98,7 @@ public class Vector {
         double y = this.head.z.coord * v.head.x.coord - this.head.x.coord * v.head.z.coord;
         double z = this.head.x.coord * v.head.y.coord - this.head.y.coord * v.head.x.coord;
 
-        if(new Point3D(x, y, z).equals(Point3D.ZERO))
+        if (new Point3D(x, y, z).equals(Point3D.ZERO))
             throw new IllegalArgumentException("cross product resulting Zero point head");
 
         return new Vector(x, y, z);
@@ -100,6 +106,7 @@ public class Vector {
 
     /**
      * returns the dot product between the vector and another one
+     *
      * @param v - a vector with we multiply the vector
      * @return vector multiply result
      */
@@ -132,6 +139,7 @@ public class Vector {
 
     /**
      * normalizes the vector
+     *
      * @return the vector after he was normalized
      */
     public Vector normalize() {
@@ -151,7 +159,7 @@ public class Vector {
     public Vector normalized() {
         Vector v = new Vector(this.head);
 
-            return v.normalize();
+        return v.normalize();
     }
 
     @Override
@@ -163,7 +171,9 @@ public class Vector {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
+
         Vector vector = (Vector) o;
+
         return head.equals(vector.head);
     }
 }

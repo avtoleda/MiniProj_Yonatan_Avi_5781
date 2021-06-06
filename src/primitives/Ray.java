@@ -1,19 +1,24 @@
 package primitives;
 
 import java.util.List;
+
 import geometries.Intersectable.GeoPoint;
+
 /**
  * Ray in the 3D space
- * field1 p0 - beginning point of ray
- * field2 dir - ray vector direction
+ * p0 - beginning point of ray
+ * dir - ray vector direction
  */
 public class Ray {
+    private static final double DELTA = 0.1;
     final Point3D p0;
     final Vector dir;
 
     /**
+     * constructor
      * creates a new ray
-     * @param p0 - beginning point of ray
+     *
+     * @param p0  - beginning point of ray
      * @param dir - ray vector direction
      */
     public Ray(Point3D p0, Vector dir) {
@@ -22,14 +27,14 @@ public class Ray {
     }
 
     /**
+     * constructor
      *
-     * @param point
-     * @param lightDirection
-     * @param n
-     * @param DELTA
+     * @param point          - the beginning point of the ray
+     * @param lightDirection - vector in the light direction
+     * @param n              - the normal vector
      */
-    public Ray(Point3D point, Vector lightDirection, Vector n, double DELTA) {
-        Vector delta = n.scale(n.dotProduct(lightDirection) > 0 ? DELTA : - DELTA);
+    public Ray(Point3D point, Vector lightDirection, Vector n) {
+        Vector delta = n.scale(n.dotProduct(lightDirection) > 0 ? DELTA : -DELTA);
         this.p0 = point.add(delta);
         this.dir = lightDirection.normalized();
     }
@@ -48,10 +53,14 @@ public class Ray {
         return this.dir;
     }
 
+    /**
+     * @param points - list of points
+     * @return the closest point to P0
+     */
     public Point3D findClosestPoint(List<Point3D> points) {
         Point3D minPoint = null;
 
-        if(points != null) {
+        if (points != null) {
             double distance = Double.POSITIVE_INFINITY;
 
             for (Point3D p : points) {
@@ -80,14 +89,18 @@ public class Ray {
         return p0.equals(ray.p0) && dir.equals(ray.dir);
     }
 
+    /**
+     * @param t - number with we want to scale v(the direction vector of the ray)
+     * @return a point that is equal to p0 + tv
+     */
     public Point3D getPoint(double t) {
         return this.p0.add(this.dir.scale(t));
     }
 
-    public GeoPoint findClosestGeoPoint(List<GeoPoint> points){
+    public GeoPoint findClosestGeoPoint(List<GeoPoint> points) {
         GeoPoint minPoint = null;
 
-        if(points != null) {
+        if (points != null) {
             double distance = Double.POSITIVE_INFINITY;
 
             for (GeoPoint p : points) {

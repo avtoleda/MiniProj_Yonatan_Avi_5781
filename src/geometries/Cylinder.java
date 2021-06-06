@@ -6,7 +6,7 @@ import primitives.Vector;
 
 /**
  * Cylinder in the 3D space
- * field1 height - height of the tube
+ * height - height of the tube
  */
 public class Cylinder extends Tube {
     final double height;
@@ -35,11 +35,18 @@ public class Cylinder extends Tube {
         return super.toString() + "height= " + height;
     }
 
+    /**
+     * calculate the normal vector to the cylinder
+     *
+     * @param p - the point from where we want calculate the normal of the cylinder
+     * @return the normal vector to the cylinder
+     */
     @Override
     public Vector getNormal(Point3D p) {
-        Point3D b2 = getAxisRay().getDir().scale(getHeight()).getHead();
+        Point3D b2 = getAxisRay().getDir().scale(height).getHead();
         Vector vec1 = new Vector(1, 0, 0);//stam to make him happy
         Vector vec2 = new Vector(1, 0, 0);//stam to make him happy
+
         if (p != getAxisRay().getP0() && p != b2) {
             vec1 = b2.subtract(p);
             vec2 = getAxisRay().getP0().subtract(p);
@@ -47,6 +54,7 @@ public class Cylinder extends Tube {
 
         if (p == getAxisRay().getP0() || p == b2 || vec1.dotProduct(getAxisRay().getDir()) == 0 || vec2.dotProduct(getAxisRay().getDir()) == 0)
             return getAxisRay().getDir();
+
         else
             return super.getNormal(p);
     }

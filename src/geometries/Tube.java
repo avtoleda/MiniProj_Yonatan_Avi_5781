@@ -8,8 +8,8 @@ import java.util.List;
 
 /**
  * Tube in the 3D space
- * field1 axisRay - the ray around which we built the tube
- * field2 radius - the radius of the tube
+ * axisRay - the ray around which we built the tube
+ * radius - the radius of the tube
  */
 public class Tube extends Geometry {
     final Ray axisRay;
@@ -17,8 +17,9 @@ public class Tube extends Geometry {
 
     /**
      * create a new tube
+     *
      * @param axisRay - the ray around which we built the tube
-     * @param radius - the radius of the tube
+     * @param radius  - the radius of the tube
      */
     public Tube(Ray axisRay, double radius) {
         this.radius = radius;
@@ -39,6 +40,7 @@ public class Tube extends Geometry {
 
     /**
      * calculate the normal of the tube in a point
+     *
      * @param p - the point from where we want calculate the normal of the tube
      * @return the normal to the tube in p
      */
@@ -52,10 +54,7 @@ public class Tube extends Geometry {
         return N;
     }
 
-    public List<Point3D> findIntersections(Ray ray) {
-        return null;
-    }
-
+    //not implemented
     public List<Intersectable.GeoPoint> findGeoIntersections(Ray ray) {
         return null;
     }

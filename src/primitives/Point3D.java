@@ -2,9 +2,10 @@ package primitives;
 
 /**
  * Point in the 3D space
- * field1 x - x point coordinate
- * field2 y - y point coordinate
- * field3 z - z point coordinate
+ * x - x point coordinate
+ * y - y point coordinate
+ * z - z point coordinate
+ * ZERO - zero point
  */
 
 public class Point3D {
@@ -15,6 +16,7 @@ public class Point3D {
 
     /**
      * creates a new point
+     *
      * @param x - x point coordinate
      * @param y - y point coordinate
      * @param z - z point coordinate
@@ -24,24 +26,6 @@ public class Point3D {
         this.y = new Coordinate(y);
         this.z = new Coordinate(z);
     }
-    //public Point3D(){};
-    /* later in the next level of the project
-    public Coordinate getX() {
-        return x;
-    }
-
-    public Coordinate getY() {
-        return y;
-    }
-
-    public Coordinate getZ() {
-        return z;
-    }
-
-    public static Point3D getZERO() {
-        return ZERO;
-    }
-    */
 
     @Override
     public boolean equals(Object o) {
@@ -58,6 +42,7 @@ public class Point3D {
 
     /**
      * create a vector from p to the point
+     *
      * @param p - a point from where the vector begin
      * @return Vector from p to the point
      */
@@ -71,6 +56,7 @@ public class Point3D {
 
     /**
      * create a point that is the end of the point when we add him the vector
+     *
      * @param v - the vector we want add to the point
      * @return the point we reach after we add to the point the vector
      */
@@ -84,6 +70,7 @@ public class Point3D {
 
     /**
      * calculate the distance^2 between p and the point
+     *
      * @param p the point we want know the distance^2 between him to the point
      * @return the distance^2 between the two points
      */
@@ -97,6 +84,7 @@ public class Point3D {
 
     /**
      * calculate the distance between p and the point
+     *
      * @param p the point we want know the distance between him to the point
      * @return the distance between the two points
      */

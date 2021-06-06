@@ -42,16 +42,17 @@ public class Render {
             int nX = imageWriter.getNx();
             int nY = imageWriter.getNy();
 
-            for (int i = 0; i < nY; i++) {
-                for (int j = 0; j < nX; j++) {
+
+            /* for each pixel: construct ray from camera to middle of the pixel,
+             according to the result color the pixel and write him to the image */
+            for (int i = 0; i < nY; i++) { //i is running on the rows (nY = number of rows)
+                for (int j = 0; j < nX; j++) { //j is running on the columns (nX = number of columns)
                     Ray ray = this.camera.constructRayThroughPixel(nX, nY, j, i);
                     Color pixelColor = this.rayTracerBase.traceRay(ray);
                     this.imageWriter.writePixel(j, i, pixelColor);
                 }
             }
-        }
-
-        catch (MissingResourceException e) {
+        } catch (MissingResourceException e) {
             throw new UnsupportedOperationException("Not implemented yet" + e.getClassName());
         }
     }
@@ -62,7 +63,7 @@ public class Render {
 
         for (int i = 0; i < nY; i++) {
             for (int j = 0; j < nX; j++) {
-                if(i % interval == 0 || j % interval == 0)
+                if (i % interval == 0 || j % interval == 0)
                     this.imageWriter.writePixel(j, i, color);
             }
         }
