@@ -13,6 +13,7 @@ public abstract class RayTracerBase {
 
     /**
      * constructor
+     *
      * @param scene - the scene
      */
     public RayTracerBase(Scene scene) {
@@ -20,9 +21,8 @@ public abstract class RayTracerBase {
     }
 
     /**
-     *
-     * @param ray
-     * @return
+     * @param ray - the ray that pass in the middle of the pixel
+     * @return the color of the pixel
      */
     public abstract Color traceRay(Ray ray);
 }
