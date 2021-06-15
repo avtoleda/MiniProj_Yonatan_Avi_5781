@@ -10,7 +10,7 @@ import java.util.List;
 import static primitives.Util.alignZero;
 
 public class RayTracerBasic extends RayTracerBase {
-    private static int WITH_SUPER_STUFF = 0;
+    private static int WITH_SUPER_STUFF = 1;
     private static int AMM_OF_RAYS = 20;
     private static double RADIUS = 10;
     private static double MULTI_RAY_DEFAULT_DISTANCE = 50;
