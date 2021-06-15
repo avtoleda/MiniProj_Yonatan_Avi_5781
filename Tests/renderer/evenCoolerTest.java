@@ -190,8 +190,8 @@ public class evenCoolerTest {
                 new SpotLight(new Color(232, 250, 248), new Point3D(60,40,2), new Vector(-1,0,0)).setKq(0.00005).setKl(0.03).setKc(0.8));
         scene.lights.add(
                 new SpotLight(new Color(232, 250, 248), new Point3D(60,-40,2), new Vector(-1,0,0)).setKq(0.00005).setKl(0.03).setKc(0.8));
-        scene.lights.add(
-                new PointLight(new Color(200, 170, 245),new Point3D(-20,0,100)).setKq(1E-6));
+        //scene.lights.add(
+        //        new PointLight(new Color(200, 170, 245),new Point3D(-20,0,100)).setKq(1E-10));
         Render render = new Render() //
                 .setImageWriter(new ImageWriter("hi to u", 600, 600)) //
                 .setCamera(_camera) //
