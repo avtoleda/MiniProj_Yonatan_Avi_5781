@@ -179,7 +179,9 @@ public class Vector {
 
     /**
      * RotateByRadians
-     *
+     *gets a vector axis that is perpendicular to this and an angle in radians
+     * it spins the vector by the amount of radians counter clockwise
+     * and returns a new vector
      * @param axis
      * @param angle
      * @return
