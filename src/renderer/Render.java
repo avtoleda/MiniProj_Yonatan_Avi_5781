@@ -6,27 +6,54 @@ import primitives.Ray;
 
 import java.util.MissingResourceException;
 
+/**
+ * render the image
+ * imageWriter - write the final image
+ * camera - the camera
+ * rayTracerBase - ray scanner
+ */
 public class Render {
     private ImageWriter imageWriter;
     private Camera camera;
     private RayTracerBase rayTracerBase;
 
 
+    /**
+     * set image writer
+     *
+     * @param imageWriter - image writer
+     * @return the object himself(Render)
+     */
     public Render setImageWriter(ImageWriter imageWriter) {
         this.imageWriter = imageWriter;
         return this;
     }
 
+    /**
+     * set camera
+     *
+     * @param camera - camera
+     * @return the object himself(Render)
+     */
     public Render setCamera(Camera camera) {
         this.camera = camera;
         return this;
     }
 
+    /**
+     * set ray tracer
+     *
+     * @param rayTracerBase - ray scanner
+     * @return the object himself(Render)
+     */
     public Render setRayTracer(RayTracerBase rayTracerBase) {
         this.rayTracerBase = rayTracerBase;
         return this;
     }
 
+    /**
+     * render the image(build the image: decide in which color to color every pixel)
+     */
     public void renderImage() {
         try {
             if (this.imageWriter == null)
@@ -59,6 +86,10 @@ public class Render {
         }
     }
 
+    /**
+     * @param interval - the number of pixels not to draw as a grid, before we color one pixel as a grid
+     * @param color    - the color in which to color the grid
+     */
     public void printGrid(int interval, Color color) {
         int nX = this.imageWriter.getNx();
         int nY = this.imageWriter.getNy();
@@ -71,6 +102,9 @@ public class Render {
         }
     }
 
+    /**
+     * write the result to a final image
+     */
     public void writeToImage() {
         if (this.imageWriter == null)
             throw new MissingResourceException("missing resource", ImageWriter.class.getName(), "");

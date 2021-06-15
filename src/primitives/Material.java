@@ -7,8 +7,8 @@ import java.lang.reflect.MalformedParametersException;
  * kD - diffuse factor
  * kS - specular factor
  * nShininess - the object shininess
- * kT -
- * kR -
+ * kT - transparency factor
+ * kR - reflection factor
  */
 public class Material {
     public double kD = 0;
@@ -18,8 +18,10 @@ public class Material {
     public double kR = 0;
 
     /**
+     * set kD
      *
-     * @param kD
+     * @param kD - diffuse factor
+     * @return the material
      */
     public Material setKd(double kD) {
         this.kD = kD;
@@ -27,8 +29,10 @@ public class Material {
     }
 
     /**
+     * set kS
      *
-     * @param kS
+     * @param kS - specular factor
+     * @return the material
      */
     public Material setKs(double kS) {
         this.kS = kS;
@@ -36,8 +40,10 @@ public class Material {
     }
 
     /**
+     * set shininess
      *
-     * @param nShininess
+     * @param nShininess - the object shininess
+     * @return the material
      */
     public Material setShininess(int nShininess) {
         this.nShininess = nShininess;
@@ -45,9 +51,10 @@ public class Material {
     }
 
     /**
+     * set kT
      *
-     * @param kT
-     * @return
+     * @param kT - transparency factor
+     * @return the material
      */
     public Material setKt(double kT) {
         this.kT = kT;
@@ -55,9 +62,10 @@ public class Material {
     }
 
     /**
+     * set kR
      *
-     * @param kR
-     * @return
+     * @param kR - reflection factor
+     * @return the material
      */
     public Material setKr(double kR) {
         this.kR = kR;
