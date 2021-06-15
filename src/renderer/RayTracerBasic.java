@@ -95,7 +95,7 @@ public class RayTracerBasic extends RayTracerBase {
      */
     //(constructReflectedRay(gp.point, v, n), level, material.kR, kkr);
     public Color calcCoolGloss(Ray r, int level, double kX, double kkx) {
-        List<Ray> vecList = multVecs(r,AMM_OF_RAYS,RADIUS);
+        List<Ray> vecList = multVecs(r,RADIUS);
         Color factor=Color.BLACK;
         for (Ray v:vecList) {
             factor = factor.add(calcGlobalEffect(r,level, kX, kkx));
@@ -125,11 +125,10 @@ public class RayTracerBasic extends RayTracerBase {
     /**
      * multVecs
      * @param orig
-     * @param rayAm
      * @param radius
      * @return
      */
-    private List<Ray> multVecs(Ray orig,int rayAm, double radius){
+    private List<Ray> multVecs(Ray orig/*,int rayAm*/, double radius){
         List<Ray> rays= new LinkedList<>();
         GeoPoint origIntersection = findClosestIntersection(orig);
         Vector origExtended = orig.getDir().normalized().scale(origIntersection == null? MULTI_RAY_DEFAULT_DISTANCE : origIntersection.point.distance(orig.getP0()));
@@ -138,8 +137,8 @@ public class RayTracerBasic extends RayTracerBase {
         Ray ort= new Ray(origIntersection == null ? orig.getP0().add(origExtended) : origIntersection.point,
                 new Vector(new Point3D(orig.getDir().getHead().getY().getCoord(),-orig.getDir().getHead().getX().getCoord(),0)));
         ort.getDir().normalize();
-        for(int i=0 ; i<rayAm ; i++){
-            ort = new Ray(ort.getP0(),ort.getDir().RotateByRadians(orig.getDir().normalized(),(2*Math.PI)/(double)rayAm).normalize().scale(radius));
+        for(int i=0 ; i<AMM_OF_RAYS ; i++){
+            ort = new Ray(ort.getP0(),ort.getDir().RotateByRadians(orig.getDir().normalized(),(2*Math.PI)/(double)AMM_OF_RAYS).normalize().scale(radius));
             //rays.add(new Ray(orig.getP0(),orig.getDir().add(ort.getDir()).normalize()));
             rays.add(new Ray(orig.getP0(), origExtended.add(ort.getDir()).normalize()));
         }
