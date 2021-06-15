@@ -136,6 +136,7 @@ public class RayTracerBasic extends RayTracerBase {
      * @return a list of rays
      */
     private List<Ray> multVecs(Ray orig, double radius){
+        orig.getDir().normalize();
         List<Ray> rays= new LinkedList<>();
         Point3D origIntersection = findClosestIntersection(orig)==null?
                 orig.getP0().add(orig.getDir().scale(MULTI_RAY_DEFAULT_DISTANCE)) : findClosestIntersection(orig).point;
@@ -143,7 +144,6 @@ public class RayTracerBasic extends RayTracerBase {
          //   origIntersection=
        // Vector origExtended = orig.getDir().normalized().scale(origIntersection == null? MULTI_RAY_DEFAULT_DISTANCE : origIntersection.point.distance(orig.getP0()));
         //        //Point3D origIntersection = findClosestIntersection(orig) == .point;
-        orig.getDir().normalize();
         Vector ort=  perVec(orig.getDir()).normalize().scale(radius);/*new Vector(origIntersection == null ? orig.getP0()/*.add(origExtended) : origIntersection.point,*/
        // ort.getDir().normalize();
         for(int i=0 ; i<AMM_OF_RAYS ; i++){
