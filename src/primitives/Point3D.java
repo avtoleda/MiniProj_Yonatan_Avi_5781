@@ -26,6 +26,11 @@ public class Point3D {
         this.y = new Coordinate(y);
         this.z = new Coordinate(z);
     }
+    public Point3D(Coordinate x, Coordinate y, Coordinate z) {
+        this.x = x;
+        this.y = y;
+        this.z = z;
+    }
 
     @Override
     public boolean equals(Object o) {
@@ -82,12 +87,25 @@ public class Point3D {
         return (x * x + y * y + z * z);
     }
 
+    public Coordinate getX() {
+        return x;
+    }
+
+    public Coordinate getY() {
+        return y;
+    }
+
+    public Coordinate getZ() {
+        return z;
+    }
+
     /**
      * calculate the distance between p and the point
      *
      * @param p the point we want know the distance between him to the point
      * @return the distance between the two points
      */
+
     public double distance(Point3D p) {
         return Math.sqrt(this.distanceSquared(p));
     }

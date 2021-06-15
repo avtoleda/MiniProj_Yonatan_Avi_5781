@@ -95,6 +95,37 @@ public class Polygon extends Geometry {
 
     @Override
     public List<GeoPoint> findGeoIntersections(Ray ray) {
-        return null;
+
+        List<GeoPoint> intersections = this.plane.findGeoIntersections(ray);
+
+        if (intersections == null)
+            return null;
+
+        Point3D p0 = ray.getP0();
+        Vector v = ray.getDir();
+
+        intersections.get(0).geometry = this;
+        Vector v1 ;
+        Vector v2;
+        Vector n;
+        double s=1;
+        double sign;
+        v1 = this.vertices.get(0).subtract(p0);
+        v2 = this.vertices.get((1)%vertices.size()).subtract(p0);
+        n = (v1.crossProduct(v2)).normalize();
+        s = alignZero(v.dotProduct(n));
+        sign=Math.signum(s);
+        if(sign==0)
+            return null;
+        for(int i=1; i< vertices.size();i++) {
+            v1 = this.vertices.get(i).subtract(p0);
+            v2 = this.vertices.get((i+1)%vertices.size()).subtract(p0);
+            n = (v1.crossProduct(v2)).normalize();
+            s = alignZero(v.dotProduct(n));
+            if(sign*s<=0)
+                return null;
+        }
+      return intersections;
+
     }
 }
