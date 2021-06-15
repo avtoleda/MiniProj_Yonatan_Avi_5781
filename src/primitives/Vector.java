@@ -187,10 +187,11 @@ public class Vector {
     public Vector RotateByRadians(Vector axis, double angle) {
         Vector v = new Vector(new Point3D(this.head.getX(), this.head.getY(), this.head.getZ()));
         Vector term1 = null, term2 = null;
-        if(Math.cos(angle) != 0)
-            term1 = v.scale(Math.cos(angle));
-        if(Math.sin(angle) != 0)
-            term2 = axis.crossProduct(v).scale(Math.sin(angle));
+        double cos=Math.cos(angle),sin=Math.sin(angle);
+        if(cos != 0)
+            term1 = v.scale(cos);
+        if(sin != 0)
+            term2 = axis.crossProduct(v).scale(sin);
         //if cosine of angle was zero, then sin has to be non-zero, therefore return the second term
         if(term1 == null)
             return term2;

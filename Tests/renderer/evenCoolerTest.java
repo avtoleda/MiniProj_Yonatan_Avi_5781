@@ -80,7 +80,7 @@ public class evenCoolerTest {
                         .setKd(0.3).setKs(0.6).setShininess(50)),
                 //light
                 new Sphere(20,new Point3D(-20,0,100))
-                        .setEmission(new Color(200,200,200))
+                        .setEmission(new Color(200,200,100))
                         .setMaterial(new Material().setKd(0.3).setKt(0.7).setKr(0.0).setKs(0.1).setShininess(30)),
                 //table
                 //top and bottom
