@@ -66,8 +66,9 @@ public class evenCoolerTest {
                 new Sphere(10,new Point3D(-9-20,-9,20))
                         .setEmission(new Color(200,111,64))
                         .setMaterial(new Material().setKd(0.6).setKs(0.7).setShininess(10)) ,
+                //cone
                 new Triangle(new Point3D(0-20,0,-10),new Point3D(15-20,15,15),new Point3D(15-20,-15,15))
-                        .setEmission(new Color(50,40,50)).setMaterial(new Material()
+                        .setEmission(new Color(130, 101, 55)).setMaterial(new Material()
                         .setKd(0.3).setKs(0.6).setShininess(50)),
                 new Triangle(new Point3D(0-20,0,-10),new Point3D(15-20,15,15),new Point3D(-15-20,15,15))
                         .setEmission(new Color(130, 101, 55)).setMaterial(new Material()

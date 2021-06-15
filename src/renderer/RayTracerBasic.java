@@ -1,13 +1,11 @@
 package renderer;
 import elements.LightSource;
 import geometries.Intersectable.GeoPoint;
-import geometries.Plane;
 import primitives.*;
 import scene.Scene;
 
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Random;
 
 import static primitives.Util.alignZero;
 
@@ -90,11 +88,14 @@ public class RayTracerBasic extends RayTracerBase {
 
     /**
      * calcs the color for each ray and calculates the average
+     * it gets a ray and it uses the global radius to send off to get the list of rays
+     * then for each one it determines its color and adds it to factor which calculates an average
+     * we also get a bunch of things to pass on
      * @param r the original ray
      * @return
      */
     //(constructReflectedRay(gp.point, v, n), level, material.kR, kkr);
-    public Color calcCoolGloss(Ray r, int level, double kX, double kkx) {
+    public Color CalcDiffGloEff(Ray r, int level, double kX, double kkx) {
         List<Ray> vecList = multVecs(r,RADIUS);
         Color factor=Color.BLACK;
         for (Ray v:vecList) {
@@ -124,26 +125,58 @@ public class RayTracerBasic extends RayTracerBase {
 
     /**
      * multVecs
+     * we make a list of rays that start at the rays start and they finish in a circle
+     * we get a ray and we find its first intesection if it doesnt exist we make it a point far away
+     * we then make a perpandicular vec and run in a loop
+     * each time creating a ray from our starting point to the edge of the ray which rotates around our main ray
+     * and we make its length be equal to the radius then we add the original ray
+     * we then send back the list of all the rays
      * @param orig
      * @param radius
-     * @return
+     * @return a list of rays
      */
-    private List<Ray> multVecs(Ray orig/*,int rayAm*/, double radius){
+    private List<Ray> multVecs(Ray orig, double radius){
         List<Ray> rays= new LinkedList<>();
-        GeoPoint origIntersection = findClosestIntersection(orig);
-        Vector origExtended = orig.getDir().normalized().scale(origIntersection == null? MULTI_RAY_DEFAULT_DISTANCE : origIntersection.point.distance(orig.getP0()));
+        Point3D origIntersection = findClosestIntersection(orig)==null?
+                orig.getP0().add(orig.getDir().scale(MULTI_RAY_DEFAULT_DISTANCE)) : findClosestIntersection(orig).point;
+       // if(origIntersection==null)
+         //   origIntersection=
+       // Vector origExtended = orig.getDir().normalized().scale(origIntersection == null? MULTI_RAY_DEFAULT_DISTANCE : origIntersection.point.distance(orig.getP0()));
         //        //Point3D origIntersection = findClosestIntersection(orig) == .point;
         orig.getDir().normalize();
-        Ray ort= new Ray(origIntersection == null ? orig.getP0().add(origExtended) : origIntersection.point,
-                new Vector(new Point3D(orig.getDir().getHead().getY().getCoord(),-orig.getDir().getHead().getX().getCoord(),0)));
-        ort.getDir().normalize();
+        Vector ort=  perVec(orig.getDir()).normalize().scale(radius);/*new Vector(origIntersection == null ? orig.getP0()/*.add(origExtended) : origIntersection.point,*/
+       // ort.getDir().normalize();
         for(int i=0 ; i<AMM_OF_RAYS ; i++){
-            ort = new Ray(ort.getP0(),ort.getDir().RotateByRadians(orig.getDir().normalized(),(2*Math.PI)/(double)AMM_OF_RAYS).normalize().scale(radius));
+            ort = ort.RotateByRadians(orig.getDir(),(2*Math.PI)/(double)AMM_OF_RAYS);
             //rays.add(new Ray(orig.getP0(),orig.getDir().add(ort.getDir()).normalize()));
-            rays.add(new Ray(orig.getP0(), origExtended.add(ort.getDir()).normalize()));
+            rays.add(new Ray(orig.getP0(), origIntersection.add(ort).subtract(orig.getP0()).normalize()));
         }
         rays.add(orig);
         return rays;
+    }
+
+    /**
+     * perVec
+     * gets a vector and returns a vector that is perpendicular to the vec
+     * ie that their dot product equals 0 ;)
+     * @param v
+     * @return
+     */
+    private Vector perVec(Vector v){
+        Vector perVec;
+        //if the two first coordinates equal 0 so we cant make perVec equals (y,-x,0)
+        // because we'll get the vec 0 which doesnt exist so we make it (z,0,-x)
+        //else we do (y,-x,0)
+        //same for the last one we just dont want to get to (0,0,0)
+        if (v.getHead().getX().getCoord()==0 && v.getHead().getY().getCoord()==0){
+            perVec=new Vector(new Point3D(v.getHead().getZ().getCoord(),0,-v.getHead().getX().getCoord()));
+        }
+        else if(v.getHead().getY().getCoord()==0 && v.getHead().getZ().getCoord()==0)
+            perVec=new Vector(new Point3D(v.getHead().getY().getCoord(),-v.getHead().getX().getCoord(),0));
+        else
+            perVec=new Vector(new Point3D(0,v.getHead().getZ().getCoord(),-v.getHead().getY().getCoord()));
+
+        return perVec;
     }
 
 
@@ -164,13 +197,6 @@ public class RayTracerBasic extends RayTracerBase {
         return ktr;
     }
 
-//    private double transparencySuped(LightSource light, Vector l, Vector n, GeoPoint geopoint, double delta, int mult){
-//       double sum=transparency(light,l,n,geopoint);
-//        for(int i=0; i< mult;i++)
-//        {
-//
-//        }
-//    }
 
     private Color calcGlobalEffects(GeoPoint gp, Vector v, int level, double k) {
         Color color = Color.BLACK;
@@ -178,8 +204,9 @@ public class RayTracerBasic extends RayTracerBase {
         Material material = gp.geometry.getMaterial();
         double kkr = k * material.kR;
         if (kkr > MIN_CALC_COLOR_K){
+            //if we are using our addition
         if(WITH_SUPER_STUFF==1)
-            color = calcCoolGloss(constructReflectedRay(gp.point, v, n), level, material.kR, kkr);
+            color = CalcDiffGloEff(constructReflectedRay(gp.point, v, n), level, material.kR, kkr);
         else
             color = calcGlobalEffect(constructReflectedRay(gp.point, v, n), level, material.kR, kkr);
 
@@ -187,9 +214,10 @@ public class RayTracerBasic extends RayTracerBase {
 
         double kkt = k * material.kT;
         if (kkt > MIN_CALC_COLOR_K){
+            //if we are using our addition
             if(WITH_SUPER_STUFF==1)
             color = color.add(
-                    calcCoolGloss(constructRefractedRay(gp.point, v, n), level, material.kT, kkt));
+                    CalcDiffGloEff(constructRefractedRay(gp.point, v, n), level, material.kT, kkt));
             else
                 color = color.add(calcGlobalEffect(constructRefractedRay(gp.point, v, n), level, material.kT, kkt));
 
