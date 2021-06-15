@@ -10,7 +10,7 @@ import scene.Scene;
     public class coolstuffTest {
         private Camera _camera= new Camera(new Point3D(140,0,0),new Vector(-1,0,0), new Vector(0,0,1)).setViewPlaneSize(200, 200).setDistance(140);
     private Scene scene = new Scene("Testyon").setAmbientLight(new AmbientLight(new Color(java.awt.Color.WHITE), 0.2)); //
-    ;
+
     @Test
     public void cool(){
         scene.geometries.add(
@@ -46,7 +46,7 @@ import scene.Scene;
                         .setMaterial(new Material().setKd(0).setKt(0.5).setKr(0.0).setKs(0.0).setShininess(0)),
                 new Plane(new Point3D(150, -150, -10), new Point3D(-150, 150, -10), new Point3D(-67, -67, -10))
                         .setEmission(new Color(168, 101, 45))
-                        .setMaterial(new Material().setKr(0.2).setShininess(30).setKd(0.5).setKt(0.3))
+                        .setMaterial(new Material().setKr(0.8).setShininess(30).setKd(0.5).setKt(0.0))
 
         );
         scene.lights.add(

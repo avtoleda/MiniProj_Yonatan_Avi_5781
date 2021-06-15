@@ -176,4 +176,29 @@ public class Vector {
 
         return head.equals(vector.head);
     }
+
+    /**
+     * RotateByRadians
+     *
+     * @param axis
+     * @param angle
+     * @return
+     */
+    public Vector RotateByRadians(Vector axis, double angle) {
+        Vector v = new Vector(new Point3D(this.head.getX(), this.head.getY(), this.head.getZ()));
+        Vector term1 = null, term2 = null;
+        if(Math.cos(angle) != 0)
+            term1 = v.scale(Math.cos(angle));
+        if(Math.sin(angle) != 0)
+            term2 = axis.crossProduct(v).scale(Math.sin(angle));
+        //if cosine of angle was zero, then sin has to be non-zero, therefore return the second term
+        if(term1 == null)
+            return term2;
+        //if sine of angle was zero, then cosine has to be non-zero, therefore return the first term
+        else if(term2 == null)
+            return term1;
+        //if both cosine and sine are none zero then return the addition of the terms
+        return term1.add(term2);
+        //complex calculation to ro tate vec by given angle in radians
+    }
 }

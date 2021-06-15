@@ -75,6 +75,8 @@ public class Render {
             for (int i = 0; i < nY; i++) { //i is running on the rows (nY = number of rows)
                 for (int j = 0; j < nX; j++) { //j is running on the columns (nX = number of columns)
                     Ray ray = this.camera.constructRayThroughPixel(nX, nY, j, i);
+                    //TODO:remove this
+                    System.out.println(i+" * "+j);
                     Color pixelColor = this.rayTracerBase.traceRay(ray);
                     this.imageWriter.writePixel(j, i, pixelColor);
                 }
