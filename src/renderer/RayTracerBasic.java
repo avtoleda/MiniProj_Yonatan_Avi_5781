@@ -11,8 +11,9 @@ import static primitives.Util.alignZero;
 
 public class RayTracerBasic extends RayTracerBase {
     private static int WITH_SUPER_STUFF = 1;
-    private static int AMM_OF_RAYS = 20;
-    private static double RADIUS = 10;
+    private int raysperpix=0;
+    private static int AMM_OF_RAYS = 8;
+    private static double RADIUS = 8;
     private static double MULTI_RAY_DEFAULT_DISTANCE = 50;
 
     private static final double DELTA = 0.1;
@@ -99,28 +100,12 @@ public class RayTracerBasic extends RayTracerBase {
         List<Ray> vecList = multVecs(r,RADIUS);
         Color factor=Color.BLACK;
         for (Ray v:vecList) {
-            factor = factor.add(calcGlobalEffect(r,level, kX, kkx));
+            factor = factor.add(calcGlobalEffect(v,level, kX, kkx));
+            //TODO delete this
+            //System.out.println(raysperpix++);
         }
 
         return factor.reduce(AMM_OF_RAYS +1)/*.add(scene.ambientLight.getIntensity())*/;
-    }
-    private boolean unshaded(LightSource light, Vector l, Vector n, GeoPoint geopoint) {
-        Vector lightDirection = l.scale(-1); // from point to light source
-        Ray lightRay = new Ray(geopoint.point, lightDirection, n); // refactored ray head move
-        List<GeoPoint> intersections = scene.geometries.findGeoIntersections(lightRay);
-
-        if (intersections == null)
-            return true;
-
-        double lightDistance = light.getDistance(geopoint.point);
-
-        for (GeoPoint gp : intersections) {
-            if (alignZero(gp.point.distance(geopoint.point) - lightDistance) <= 0 &&
-                    gp.geometry.getMaterial().kT == 0)
-                return false;
-        }
-
-        return true;
     }
 
     /**
@@ -155,6 +140,26 @@ public class RayTracerBasic extends RayTracerBase {
         return rays;
     }
 
+    private boolean unshaded(LightSource light, Vector l, Vector n, GeoPoint geopoint) {
+        Vector lightDirection = l.scale(-1); // from point to light source
+        Ray lightRay = new Ray(geopoint.point, lightDirection, n); // refactored ray head move
+        List<GeoPoint> intersections = scene.geometries.findGeoIntersections(lightRay);
+
+        if (intersections == null)
+            return true;
+
+        double lightDistance = light.getDistance(geopoint.point);
+
+        for (GeoPoint gp : intersections) {
+            if (alignZero(gp.point.distance(geopoint.point) - lightDistance) <= 0 &&
+                    gp.geometry.getMaterial().kT == 0)
+                return false;
+        }
+
+        return true;
+    }
+
+
     /**
      * perVec
      * gets a vector and returns a vector that is perpendicular to the vec
@@ -168,15 +173,46 @@ public class RayTracerBasic extends RayTracerBase {
         // because we'll get the vec 0 which doesnt exist so we make it (z,0,-x)
         //else we do (y,-x,0)
         //same for the last one we just dont want to get to (0,0,0)
-        if (v.getHead().getX().getCoord()==0 && v.getHead().getY().getCoord()==0){
-            perVec=new Vector(new Point3D(v.getHead().getZ().getCoord(),0,-v.getHead().getX().getCoord()));
-        }
-        else if(v.getHead().getY().getCoord()==0 && v.getHead().getZ().getCoord()==0)
-            perVec=new Vector(new Point3D(v.getHead().getY().getCoord(),-v.getHead().getX().getCoord(),0));
-        else
-            perVec=new Vector(new Point3D(0,v.getHead().getZ().getCoord(),-v.getHead().getY().getCoord()));
+//        if (v.getHead().getX().getCoord()==0 && v.getHead().getY().getCoord()==0){
+//            perVec=new Vector(new Point3D(v.getHead().getZ().getCoord(),0,-v.getHead().getX().getCoord()));
+//        }
+//        else if(v.getHead().getY().getCoord()==0 && v.getHead().getZ().getCoord()==0)
+//            perVec=new Vector(new Point3D(v.getHead().getY().getCoord(),-v.getHead().getX().getCoord(),0));
+//        else
+//            perVec=new Vector(new Point3D(0,v.getHead().getZ().getCoord(),-v.getHead().getY().getCoord()));
+//
+//        return perVec;
+        /**
+         * Finds some vector that's perpendicular to the given.
+         *
+         * @param n Said given vector to find a perpendicular vector for.
+         * @return The resulting vector.
+         */
+       // private Vector findPerpendicular(Vector n) {
+            double x = v.getHead().getX().getCoord();
+            double y = v.getHead().getY().getCoord();
+            double z = v.getHead().getZ().getCoord();
 
-        return perVec;
+            double a, b, c;
+            if (x == 0) {
+                a = 1;
+                b = z;
+                c = -y;
+            } else if (y == 0) {
+                b = 1;
+                a = z;
+                c = -x;
+            } else if (z == 0) {
+                c = 1;
+                a = y;
+                b = -x;
+            } else {
+                a = 1;
+                b = 1;
+                c = -x * y / z;
+            }
+            return new Vector(a, b, c);
+
     }
 
 
