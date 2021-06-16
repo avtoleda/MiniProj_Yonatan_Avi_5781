@@ -23,6 +23,7 @@ public class Scene {
     public AmbientLight ambientLight = new AmbientLight(Color.BLACK, 1.d);
     public Geometries geometries = new Geometries();
     public List<LightSource> lights = new LinkedList<LightSource>();
+    public int RayAmount = 0;
 
     /**
      * constructor
@@ -56,6 +57,16 @@ public class Scene {
      */
     public Scene setBackground(Color background) {
         this.background = background;
+        return this;
+    }
+
+    /**
+     *
+     * @param rayAmount the amount of rays to use in the scene
+     * @return returns the scene
+     */
+    public Scene setRayAmount(int rayAmount) {
+        RayAmount = rayAmount;
         return this;
     }
 

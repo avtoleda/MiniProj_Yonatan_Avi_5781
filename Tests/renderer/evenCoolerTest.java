@@ -13,44 +13,6 @@ public class evenCoolerTest {
     @Test
     public void EvenCoolerTest(){
         scene.geometries.add(
-//        new Polygon(new Point3D(0,0,0),new Point3D(-50,0,0),new Point3D(-50,-50,0),new Point3D(0,-50,0))
-//                .setEmission(new Color(123,32,87)).setMaterial(new Material().setShininess(69).setKs(0.7).setKd(0.5).setKr(0.6).setKt(1)),
-////        new Polygon(new Point3D(0,0,0),new Point3D(0,0,50),new Point3D(0,-50,50),new Point3D(0,-50,0))
-////                .setEmission(new Color(123,32,87)).setMaterial(new Material().setShininess(69).setKs(0.7).setKd(0.5).setKr(0.6).setKt(0)),
-//          new Polygon(new Point3D(0,-50,0),new Point3D(0,-50,50),new Point3D(-50,-50,50),new Point3D(-50,-50,0))
-//                .setEmission(new Color(123,32,87)).setMaterial(new Material().setShininess(69).setKs(0.7).setKd(0.5).setKr(0.6).setKt(1)),
-//        new Polygon(new Point3D(-50,-50,0),new Point3D(-50,-50,50),new Point3D(-50,0,50),new Point3D(-50,0,0))
-//                .setEmission(new Color(123,32,87)).setMaterial(new Material().setShininess(69).setKs(0.7).setKd(0.5).setKr(0.6).setKt(1)),
-//        new Polygon(new Point3D(-50,0,0),new Point3D(-50,0,50),new Point3D(0,0,50),new Point3D(0,0,0))
-//                .setEmission(new Color(123,32,87)).setMaterial(new Material().setShininess(69).setKs(0.7).setKd(0.5).setKr(0.6).setKt(1)),
-//        new Polygon(new Point3D(0,0,50),new Point3D(0,-50,50),new Point3D(-50,-50,50),new Point3D(-50,0,50))
-//                .setEmission(new Color(123,32,87)).setMaterial(new Material().setShininess(69).setKs(0.7).setKd(0.5).setKr(0.6).setKt(1)),
-//                new Sphere(10,new Point3D(0,0,30))
-//                        .setEmission(new Color(200,111,64))
-//                        .setMaterial(new Material().setKd(0.6).setKs(0.7).setShininess(10))
-////                new Polygon(new Point3D(40,40,0),new Point3D(40,-40,0),new Point3D(-40,-40,10),new Point3D(-40,40,10))
-//                        .setEmission(new Color(80,111,64))
-//                        .setMaterial(new Material().setKd(0.6).setKs(0.7).setShininess(70).setKr(0.5)),
-//                new Polygon(new Point3D(40,40,40),new Point3D(40,-40,40),new Point3D(-40,-40,30),new Point3D(-40,40,30))
-//                        .setEmission(new Color(80,111,64))
-//                        .setMaterial(new Material().setKd(0.6).setKs(0.7).setShininess(70).setKr(0.3).setKt(0.3)),
-//                new Polygon(new Point3D(0,30,0),new Point3D(0,0,0),new Point3D(0,0,-10),new Point3D(0,30,-10))
-//                        .setEmission(new Color(194, 8, 33))
-
-                //new Triangle(new Point3D(40,40,0),new Point3D(40,-40,0),new Point3D(-40,-40,10))
-                //        .setEmission(new Color(80,111,64))
-                //        .setMaterial(new Material().setKd(0.6).setKs(0.7).setShininess(70).setKr(0.5)),
-                //new Triangle(new Point3D(40,40,0),new Point3D(-40,-40,10),new Point3D(-40,40,10))
-                //        .setEmission(new Color(80,111,64))
-                //        .setMaterial(new Material().setKd(0.6).setKs(0.7).setShininess(70).setKr(0.5))
-               // );
-//        scene.lights.add(
-//               new SpotLight(new Color(70, 160, 100),new Point3D(50,50,50),new Vector(-50,-50,-20)).setKq(0.5).setKl(0.6).setKc(0.7));
-//        scene.lights.add(
-//        new SpotLight(new Color(100,100,200),new Point3D(0,0,50),new Vector(new Point3D(0,0,-2))));
-//        scene.lights.add(new DirectionalLight(new Color(150,98,72),new Vector(0,-3,-6)));
-//      scene.lights.add(
-//                new PointLight(new Color(200, 170, 245),new Point3D(-70,78,40)).setKl(0.4).setKq(0.005).setKc(0.5));
         new Sphere(10,new Point3D(0-20,0,30))
                 .setEmission(new Color(245, 66, 102))
                 .setMaterial(new Material().setKd(0.5).setKr(0.4).setKs(0.5).setShininess(10)) ,
