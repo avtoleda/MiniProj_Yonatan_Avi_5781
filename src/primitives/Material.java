@@ -16,6 +16,28 @@ public class Material {
     public int nShininess = 0;
     public double kT = 0;
     public double kR = 0;
+    public double GlossRadius=5;
+    public double DeffRadius=5;
+
+    /**
+     * sets deffuse radius returns this
+     * @param deffRadius
+     * @return
+     */
+    public Material setDeffRadius(double deffRadius) {
+        DeffRadius = deffRadius;
+        return this;
+    }
+
+    /**
+     * sets the GlossRadius and returns this
+     * @param GlossRadius
+     * @return
+     */
+    public Material setGlossRadius(double GlossRadius) {
+        this.GlossRadius = GlossRadius;
+        return this;
+    }
 
     /**
      * set kD
