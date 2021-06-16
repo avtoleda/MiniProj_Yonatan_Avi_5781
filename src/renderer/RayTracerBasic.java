@@ -123,19 +123,21 @@ public class RayTracerBasic extends RayTracerBase {
     private List<Ray> multVecs(Ray orig, double radius){
         orig.getDir().normalize();
         List<Ray> rays= new LinkedList<>();
-        Point3D origIntersection = findClosestIntersection(orig)==null?
-                orig.getP0().add(orig.getDir().scale(MULTI_RAY_DEFAULT_DISTANCE)) : findClosestIntersection(orig).point;
-       // if(origIntersection==null)
-         //   origIntersection=
-       // Vector origExtended = orig.getDir().normalized().scale(origIntersection == null? MULTI_RAY_DEFAULT_DISTANCE : origIntersection.point.distance(orig.getP0()));
-        //        //Point3D origIntersection = findClosestIntersection(orig) == .point;
-        Vector ort=  perVec(orig.getDir()).normalize().scale(radius);/*new Vector(origIntersection == null ? orig.getP0()/*.add(origExtended) : origIntersection.point,*/
-       // ort.getDir().normalize();
-        for(int i=0 ; i<AMM_OF_RAYS ; i++){
-            ort = ort.RotateByRadians(orig.getDir(),(2*Math.PI)/(double)AMM_OF_RAYS);
-            //rays.add(new Ray(orig.getP0(),orig.getDir().add(ort.getDir()).normalize()));
-            rays.add(new Ray(orig.getP0(), origIntersection.add(ort).subtract(orig.getP0()).normalize()));
+        if(findClosestIntersection(orig)!=null){
+            Point3D origIntersection = findClosestIntersection(orig).point;
+            // if(origIntersection==null)
+            //   origIntersection=
+            // Vector origExtended = orig.getDir().normalized().scale(origIntersection == null? MULTI_RAY_DEFAULT_DISTANCE : origIntersection.point.distance(orig.getP0()));
+            //        //Point3D origIntersection = findClosestIntersection(orig) == .point;
+            Vector ort=  perVec(orig.getDir()).normalize().scale(radius);/*new Vector(origIntersection == null ? orig.getP0()/*.add(origExtended) : origIntersection.point,*/
+            // ort.getDir().normalize();
+            for(int i=0 ; i<AMM_OF_RAYS ; i++){
+                ort = ort.RotateByRadians(orig.getDir(),(2*Math.PI)/(double)AMM_OF_RAYS);
+                //rays.add(new Ray(orig.getP0(),orig.getDir().add(ort.getDir()).normalize()));
+                rays.add(new Ray(orig.getP0(), origIntersection.add(ort).subtract(orig.getP0()).normalize()));
+            }
         }
+
         rays.add(orig);
         return rays;
     }
