@@ -44,7 +44,7 @@ public class RayTracerBasic extends RayTracerBase {
      * sends us to the "real calculation and ands the ambient light
      * @param closestPoint-first intersection for the ray
      * @param ray-the ray we are working with
-     * @return-the color from the next func+the ambient lighting
+     * @return -the color from the next func+the ambient lighting
      */
     private Color calcColor(GeoPoint closestPoint, Ray ray) {
 
@@ -73,7 +73,7 @@ public class RayTracerBasic extends RayTracerBase {
      * @param intersection-the first intesection
      * @param ray-the ray
      * @param k- where we dont care anymore
-     * @return-a color
+     * @return -a color
      */
     private Color calcLocalEffects(GeoPoint intersection, Ray ray, double k) {
         Vector v = ray.getDir ();
@@ -115,7 +115,7 @@ public class RayTracerBasic extends RayTracerBase {
      * @param v- the camera vector
      * @param nShininess-it changes the shininess so the bigger it is the smaller the specular dot will be
      * @param lightIntensity- the light intensity at the point
-     * @return- a color that took in to account the specular from a specific object
+     * @return - a color that took in to account the specular from a specific object
      */
     public Color calcSpecular(double ks,Vector l,Vector n,Vector v,int nShininess,Color lightIntensity){
         Vector r = l.subtract(n.scale(2 * l.dotProduct(n)));
@@ -168,8 +168,9 @@ public class RayTracerBasic extends RayTracerBase {
     private List<Ray> multVecs(Ray orig, double radius){
         orig.getDir().normalize();
         List<Ray> rays= new LinkedList<>();
-        if(findClosestIntersection(orig)!=null){
-            Point3D origIntersection = findClosestIntersection(orig).point;
+        GeoPoint geoClosest= findClosestIntersection(orig);
+        if(geoClosest!=null){
+            Point3D origIntersection =geoClosest.point;
             Vector ort=  perVec(orig.getDir()).normalize().scale(radius);
             for(int i=0 ; i<scene.RayAmount ; i++){
                 ort = ort.RotateByRadians(orig.getDir(),(2*Math.PI)/(double)scene.RayAmount);
@@ -187,7 +188,7 @@ public class RayTracerBasic extends RayTracerBase {
      * @param l- the vector that is from the light source to the object
      * @param n- the normal vector
      * @param geopoint
-     * @return
+     * @return - bool that tells us if the geopoint is shaded or not
      */
     private boolean unshaded(LightSource light, Vector l, Vector n, GeoPoint geopoint) {
         Vector lightDirection = l.scale(-1); // from point to light source
@@ -210,6 +211,7 @@ public class RayTracerBasic extends RayTracerBase {
 
 
     /**
+     * @author Elyahu Tzur William Howitt(2nd)
      * perVec
      * gets a vector and returns a vector that is perpendicular to the vec
      * ie that their dot product equals 0 ;)
@@ -253,7 +255,7 @@ public class RayTracerBasic extends RayTracerBase {
      * @param l- the vector that is from the light source to the object
      * @param n- the normal vector
      * @param geopoint- the point that we are dealing with
-     * @return- the amount of transparency the point has
+     * @return - the amount of transparency the point has
      */
     private double transparency(LightSource light, Vector l, Vector n, GeoPoint geopoint) {
         Vector lightDirection = l.scale(-1); // from point to light source
@@ -278,7 +280,7 @@ public class RayTracerBasic extends RayTracerBase {
      * @param v
      * @param level- the bouncing level we are at right now
      * @param k- the number that we count as negligble
-     * @return-the color of the pixel with regard to its global effects
+     * @return -the color of the pixel with regard to its global effects
      */
     private Color calcGlobalEffects(GeoPoint gp, Vector v, int level, double k) {
         Color color = Color.BLACK;
@@ -315,7 +317,7 @@ public class RayTracerBasic extends RayTracerBase {
      * @param point-point where we need to reflect
      * @param v-incoming vector
      * @param n-the normal
-     * @return-a ray that is reflected of the object
+     * @return -a ray that is reflected of the object
      */
     private Ray constructReflectedRay(Point3D point, Vector v, Vector n) {
         Vector r = v.subtract(n.scale(2 * v.dotProduct(n)));
@@ -339,7 +341,7 @@ public class RayTracerBasic extends RayTracerBase {
      * @param level- bouncing level
      * @param kx- the reflected/refracted parameter
      * @param kkx- Kx times k
-     * @return- the color of the reflected/refracted ray
+     * @return - the color of the reflected/refracted ray
      */
     private Color calcGlobalEffect(Ray ray, int level, double kx, double kkx) {
         GeoPoint gp = findClosestIntersection (ray);
