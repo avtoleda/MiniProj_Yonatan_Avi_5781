@@ -179,12 +179,13 @@ public class Vector {
 
     /**
      * RotateByRadians
+     * * @see <a href="https://en.wikipedia.org/wiki/Rodrigues%27_rotation_formula">https://en.wikipedia.org/wiki/Rodrigues%27_rotation_formula</a>
      *gets a vector axis that is perpendicular to this and an angle in radians
      * it spins the vector by the amount of radians counter clockwise
      * and returns a new vector
-     * @param axis
-     * @param angle
-     * @return
+     * @param axis - the vector that we use to rotate around
+     * @param angle - the angle we want to rotate
+     * @return - a new vector after the rotation
      */
     public Vector RotateByRadians(Vector axis, double angle) {
         Vector v = new Vector(new Point3D(this.head.getX(), this.head.getY(), this.head.getZ()));
