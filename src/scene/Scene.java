@@ -24,7 +24,7 @@ public class Scene {
     public AmbientLight ambientLight = new AmbientLight(Color.BLACK, 1.d);
     public Geometries geometries = new Geometries();
     public List<LightSource> lights = new LinkedList<LightSource>();
-    public int RayAmount = 0;
+    public int RayAmount = 8;
     //public Box box = new Box();
 
     /**

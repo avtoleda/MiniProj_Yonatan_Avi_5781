@@ -16,8 +16,8 @@ public class Material {
     public int nShininess = 0;
     public double kT = 0;
     public double kR = 0;
-    public double GlossRadius=1;
-    public double DeffRadius=5;
+    public double GlossRadius=8;
+    public double DeffRadius=8;
 
     /**
      * sets deffuse radius returns this
