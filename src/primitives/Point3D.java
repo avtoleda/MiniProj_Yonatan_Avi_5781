@@ -26,6 +26,7 @@ public class Point3D {
         this.y = new Coordinate(y);
         this.z = new Coordinate(z);
     }
+
     public Point3D(Coordinate x, Coordinate y, Coordinate z) {
         this.x = x;
         this.y = y;
@@ -87,16 +88,46 @@ public class Point3D {
         return (x * x + y * y + z * z);
     }
 
+    /**
+     * @return The X coordinate.
+     */
     public Coordinate getX() {
         return x;
     }
 
+    /**
+     * @return The Y coordinate.
+     */
     public Coordinate getY() {
         return y;
     }
 
+    /**
+     * @return The Z coordinate.
+     */
     public Coordinate getZ() {
         return z;
+    }
+
+    /**
+     * @return The value of the X coordinate.
+     */
+    public double getCx() {
+        return x.coord;
+    }
+
+    /**
+     * @return The value of the Y coordinate.
+     */
+    public double getCy() {
+        return y.coord;
+    }
+
+    /**
+     * @return The value of the Z coordinate.
+     */
+    public double getCz() {
+        return z.coord;
     }
 
     /**

@@ -14,8 +14,11 @@ public class lessCoolTest {
     void t(){
         Camera _camera= new Camera(new Point3D(140,0,40),new Vector(-1,0,0), new Vector(0,0,1)).setViewPlaneSize(200, 200).setDistance(140);
         Scene scene = new Scene("superbish").setAmbientLight(new AmbientLight(new Color(java.awt.Color.WHITE), 0.2));
+        scene.RayAmount=8;
 
         scene.geometries.add(
+                new Polygon(new Point3D(50,-50,50), new Point3D(50,50,50), new Point3D(50,50,30), new Point3D(50,-50,30))
+                        .setMaterial(new Material().setKt(1).setKr(0.0).setKd(0.3).setKs(0.2)),
             new Sphere(10,new Point3D(-20,0,50))
                     .setEmission(new Color(52, 119, 120))
                     .setMaterial(new Material().setKd(0.5).setKr(0.7).setKs(0.5).setShininess(10)),

@@ -1,5 +1,6 @@
 package geometries;
 
+import java.util.LinkedList;
 import java.util.List;
 
 import primitives.*;
@@ -21,6 +22,7 @@ public class Polygon extends Geometry {
      * Associated plane in which the polygon lays
      */
     protected Plane plane;
+    protected Box box = new Box(); // the box that bound the polygon
 
     /**
      * Polygon constructor based on vertices list. The list must be ordered by edge
@@ -51,9 +53,10 @@ public class Polygon extends Geometry {
         // polygon with this plane.
         // The plane holds the invariant normal (orthogonal unit) vector to the polygon
         plane = new Plane(vertices[0], vertices[1], vertices[2]);
-        if (vertices.length == 3)
+        if (vertices.length == 3) {
+            box.setPolygonBox(this);
             return; // no need for more tests for a Triangle
-
+        }
         Vector n = plane.getNormal();
 
         // Subtracting any subsequent points will throw an IllegalArgumentException
@@ -81,6 +84,8 @@ public class Polygon extends Geometry {
             if (positive != (edge1.crossProduct(edge2).dotProduct(n) > 0))
                 throw new IllegalArgumentException("All vertices must be ordered and the polygon must be convex");
         }
+
+        box.setPolygonBox(this);
     }
 
     @Override
@@ -88,13 +93,22 @@ public class Polygon extends Geometry {
         return plane.getNormal();
     }
 
-   // @Override
-    //public List<Point3D> findIntersections(Ray ray) {
- //       return null;
-   // }
+    public List<Point3D> getVertices() {
+        return this.vertices;
+    }
+
+    /**
+     *
+     * @return the bounding box of the polygon
+     */
+    public Box getBox() {
+        return this.box;
+    }
 
     @Override
     public List<GeoPoint> findGeoIntersections(Ray ray) {
+        //if(!ray.intersect(box)) //check before if the ray intersect the bounding box of the polygon
+          //  return null;
 
         List<GeoPoint> intersections = this.plane.findGeoIntersections(ray);
 
@@ -105,27 +119,27 @@ public class Polygon extends Geometry {
         Vector v = ray.getDir();
 
         intersections.get(0).geometry = this;
-        Vector v1 ;
+        Vector v1;
         Vector v2;
         Vector n;
-        double s=1;
+        double s = 1;
         double sign;
         v1 = this.vertices.get(0).subtract(p0);
-        v2 = this.vertices.get((1)%vertices.size()).subtract(p0);
+        v2 = this.vertices.get((1) % vertices.size()).subtract(p0);
         n = (v1.crossProduct(v2)).normalize();
         s = alignZero(v.dotProduct(n));
-        sign=Math.signum(s);
-        if(sign==0)
+        sign = Math.signum(s);
+        if (sign == 0)
             return null;
-        for(int i=1; i< vertices.size();i++) {
+        for (int i = 1; i < vertices.size(); i++) {
             v1 = this.vertices.get(i).subtract(p0);
-            v2 = this.vertices.get((i+1)%vertices.size()).subtract(p0);
+            v2 = this.vertices.get((i + 1) % vertices.size()).subtract(p0);
             n = (v1.crossProduct(v2)).normalize();
             s = alignZero(v.dotProduct(n));
-            if(sign*s<=0)
+            if (sign * s <= 0)
                 return null;
         }
-      return intersections;
 
+        return intersections;
     }
 }

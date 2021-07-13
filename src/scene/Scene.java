@@ -4,6 +4,7 @@ import elements.AmbientLight;
 import elements.LightSource;
 import geometries.Geometries;
 import geometries.Geometry;
+import primitives.Box;
 import primitives.Color;
 
 import java.util.LinkedList;
@@ -24,6 +25,7 @@ public class Scene {
     public Geometries geometries = new Geometries();
     public List<LightSource> lights = new LinkedList<LightSource>();
     public int RayAmount = 0;
+    //public Box box = new Box();
 
     /**
      * constructor

@@ -115,4 +115,63 @@ public class Ray {
 
         return minPoint;
     }
+
+    /**
+     *
+     * @param b - a box
+     * @return either is an intersection between the ray and the box or not
+     *
+     * authors - Amy Williams, Steve Barrus, R. Keith Morley, Peter Shirley
+     * thank you! (and thank you to Yehoshua Gronspect that exlain me the algorithm )
+     */
+    public boolean intersect(Box b) {
+        Point3D min = new Point3D(b.minX, b.minY, b.minZ);
+        Point3D max = new Point3D(b.maxX, b.maxY, b.maxZ);
+
+        double tmin, tmax, tymin, tymax, tzmin, tzmax;
+
+        if (this.dir.head.x.coord >= 0) {
+            tmin = (min.x.coord - this.p0.x.coord) / this.dir.head.x.coord;
+            tmax = (max.x.coord - this.p0.x.coord) / this.dir.head.x.coord;
+        } else {
+            tmin = (max.x.coord - this.p0.x.coord) / this.dir.head.x.coord;
+            tmax = (min.x.coord - this.p0.x.coord) / this.dir.head.x.coord;
+        }
+
+        if (this.dir.head.y.coord >= 0) {
+            tymin = (min.y.coord - this.p0.y.coord) / this.dir.head.y.coord;
+            tymax = (max.y.coord - this.p0.y.coord) / this.dir.head.y.coord;
+        } else {
+            tymin = (max.y.coord - this.p0.y.coord) / this.dir.head.y.coord;
+            tymax = (min.y.coord - this.p0.y.coord) / this.dir.head.y.coord;
+        }
+
+        if ((tmin > tymax) || (tymin > tmax))
+            return false;
+
+        if (tymin > tmin)
+            tmin = tymin;
+
+        if (tymax < tmax)
+            tmax = tymax;
+
+        if (this.dir.head.z.coord >= 0) {
+            tzmin = (min.z.coord - this.p0.z.coord) / this.dir.head.z.coord;
+            tzmax = (max.z.coord - this.p0.z.coord) / this.dir.head.z.coord;
+        } else {
+            tzmin = (max.z.coord - this.p0.z.coord) / this.dir.head.z.coord;
+            tzmax = (min.z.coord - this.p0.z.coord) / this.dir.head.z.coord;
+        }
+
+        if ((tmin > tzmax) || (tzmin > tmax))
+            return false;
+
+        if (tzmin > tmin)
+            tmin = tzmin;
+
+        if (tzmax < tmax)
+            tmax = tzmax;
+
+        return true;
+    }
 }

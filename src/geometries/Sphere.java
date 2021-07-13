@@ -1,9 +1,13 @@
 package geometries;
 
+import primitives.Box;
 import primitives.Point3D;
 import primitives.Ray;
 import primitives.Vector;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.LinkedList;
 import java.util.List;
 
 import static primitives.Util.alignZero;
@@ -15,10 +19,13 @@ import geometries.Intersectable.GeoPoint;
  * Sphere in the 3D space
  * center - the center point of the Sphere
  * radius - the radius of the Sphere
+ * box - bounding box of the sphere
  */
 public class Sphere extends Geometry {
     final Point3D center;
     final double radius;
+    Box box = new Box();
+
 
     /**
      * creates a new Sphere
@@ -29,6 +36,7 @@ public class Sphere extends Geometry {
     public Sphere(double radius, Point3D center) {
         this.radius = radius;
         this.center = center;
+        box.setSphereBox(this);
     }
 
     /**
@@ -36,6 +44,13 @@ public class Sphere extends Geometry {
      */
     public Point3D getCenter() {
         return this.center;
+    }
+
+    /**
+     * @return the radius of the Sphere
+     */
+    public double getRadius() {
+        return this.radius;
     }
 
     @Override
@@ -53,11 +68,22 @@ public class Sphere extends Geometry {
     }
 
     /**
+     *
+     * @return the bounding box of the sphere
+     */
+    public Box getBox() {
+        return this.box;
+    }
+
+    /**
      * @param ray - the ray with we want to find intersections
      * @return - the sphere with the intersection points between this sphere to the ray
      */
     @Override
     public List<GeoPoint> findGeoIntersections(Ray ray) {
+        //if(!ray.intersect(box)) //check before if the ray intersect the bounding box
+//            return null;
+
         Vector u;
 
         try {
