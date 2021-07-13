@@ -155,7 +155,7 @@ public class evenCoolerTest {
         //scene.lights.add(
         //        new PointLight(new Color(200, 170, 245),new Point3D(-20,0,100)).setKq(1E-10));
         Render render = new Render() //
-                .setImageWriter(new ImageWriter("hi to u", 600, 600)) //
+                .setImageWriter(new ImageWriter("hi to u 8", 600, 600)) //
                 .setCamera(_camera) //
                 .setRayTracer(new RayTracerBasic(scene));
         render.renderImage();
